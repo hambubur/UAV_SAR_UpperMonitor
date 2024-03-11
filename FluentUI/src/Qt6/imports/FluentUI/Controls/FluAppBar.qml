@@ -33,6 +33,7 @@ Rectangle{
     property int iconSize: 20
     property bool isMac: FluTools.isMacos()
     property color borerlessColor : FluTheme.primaryColor
+    property bool systemMoveEnable: true
     property var maxClickListener : function(){
         if(FluTools.isMacos()){
             if (d.win.visibility === Window.FullScreen)
@@ -70,6 +71,11 @@ Rectangle{
             d.win.showSystemMenu()
         }
     }
+    property alias buttonStayTop: btn_stay_top
+    property alias buttonMinimize: btn_minimize
+    property alias buttonMaximize: btn_maximize
+    property alias buttonClose: btn_close
+    property alias buttonDark: btn_dark
     id:control
     color: Qt.rgba(0,0,0,0)
     height: visible ? 30 : 0
@@ -77,6 +83,7 @@ Rectangle{
     z: 65535
     Item{
         id:d
+        property var hitTestList: []
         property bool hoverMaxBtn: false
         property var win: Window.window
         property bool stayTop: {
@@ -87,23 +94,34 @@ Rectangle{
         }
         property bool isRestore: win && Window.Maximized === win.visibility
         property bool resizable: win && !(win.height === win.maximumHeight && win.height === win.minimumHeight && win.width === win.maximumWidth && win.width === win.minimumWidth)
+        function containsPointToItem(point,item){
+            var pos = item.mapToGlobal(0,0)
+            var rect = Qt.rect(pos.x,pos.y,item.width,item.height)
+            if(point.x>rect.x && point.x<(rect.x+rect.width) && point.y>rect.y && point.y<(rect.y+rect.height)){
+                return true
+            }
+            return false
+        }
     }
     MouseArea{
+        id:mouse_app_bar
         anchors.fill: parent
         onPositionChanged:
             (mouse)=>{
-                d.win.startSystemMove()
+                if(systemMoveEnable){
+                    d.win.startSystemMove()
+                }
             }
         onDoubleClicked:
             (mouse)=>{
-                if(d.resizable && Qt.LeftButton){
+                if(systemMoveEnable && d.resizable && Qt.LeftButton){
                     btn_maximize.clicked()
                 }
             }
         acceptedButtons: Qt.LeftButton|Qt.RightButton
         onClicked:
             (mouse)=>{
-                if (mouse.button === Qt.RightButton){
+                if (systemMoveEnable && mouse.button === Qt.RightButton){
                     control.systemMenuListener()
                 }
             }
@@ -174,9 +192,13 @@ Rectangle{
     }
 
     RowLayout{
+        id:layout_row
         anchors.right: parent.right
         height: control.height
         spacing: 0
+        Component.onCompleted: {
+            setHitTestVisible(layout_row)
+        }
         FluToggleSwitch{
             id:btn_dark
             Layout.alignment: Qt.AlignVCenter
@@ -267,32 +289,32 @@ Rectangle{
             onClicked: closeClickListener()
         }
     }
-    function stayTopButton(){
-        return btn_stay_top
-    }
-    function minimizeButton(){
-        return btn_minimize
-    }
-    function maximizeButton(){
-        return btn_maximize
-    }
-    function closeButton(){
-        return btn_close
-    }
-    function darkButton(){
-        return btn_dark
-    }
-    function maximizeButtonHover(){
-        var hover = false;
-        var pos = btn_maximize.mapToGlobal(0,0)
+    function _maximizeButtonHover(){
+        var hover = false
         if(btn_maximize.visible){
-            var rect = Qt.rect(pos.x,pos.y,btn_maximize.width,btn_maximize.height)
-            pos = FluTools.cursorPos()
-            if(pos.x>rect.x && pos.x<(rect.x+rect.width) && pos.y>rect.y && pos.y<(rect.y+rect.height)){
-                hover = true;
+            if(d.containsPointToItem(FluTools.cursorPos(),btn_maximize)){
+                hover = true
             }
         }
         d.hoverMaxBtn = hover
         return hover;
+    }
+    function _appBarHover(){
+        var cursorPos = FluTools.cursorPos()
+        for(var i =0 ;i< d.hitTestList.length; i++){
+            var item = d.hitTestList[i]
+            if(item.visible){
+                if(d.containsPointToItem(cursorPos,item)){
+                    return false
+                }
+            }
+        }
+        if(d.containsPointToItem(cursorPos,control)){
+            return true
+        }
+        return false
+    }
+    function setHitTestVisible(id){
+        d.hitTestList.push(id)
     }
 }

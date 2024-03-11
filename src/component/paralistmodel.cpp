@@ -47,7 +47,7 @@ bool ParaListModel::setData(const QModelIndex &index, const QVariant &value, int
         item.key = value.toString();
         break;
     case ValueRole:
-        item.value = value.toInt();
+        item.value = value;
         break;
     case UnitRole:
         item.unit = value.toString();

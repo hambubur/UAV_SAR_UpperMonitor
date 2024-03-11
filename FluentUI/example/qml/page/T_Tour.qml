@@ -3,19 +3,21 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title:"Tour"
+    title: qsTr("Tour")
 
     FluTour{
         id:tour
+        finishText: qsTr("Finish")
+        nextText: qsTr("Next")
+        previousText: qsTr("Previous")
         steps:[
-            {title:"Upload File",description: "Put your files here.",target:()=>btn_upload},
-            {title:"Save",description: "Save your changes.",target:()=>btn_save},
-            {title:"Other Actions",description: "Click to see other actions.",target:()=>btn_more}
+            {title:qsTr("Upload File"),description: qsTr("Put your files here."),target:()=>btn_upload},
+            {title:qsTr("Save"),description: qsTr("Save your changes."),target:()=>btn_save},
+            {title:qsTr("Other Actions"),description: qsTr("Click to see other actions."),target:()=>btn_more}
         ]
     }
 
@@ -30,7 +32,7 @@ FluScrollablePage{
                 top: parent.top
                 topMargin: 14
             }
-            text:"Begin Tour"
+            text: qsTr("Begin Tour")
             onClicked: {
                 tour.open()
             }
@@ -43,24 +45,24 @@ FluScrollablePage{
                 topMargin: 60
             }
             FluButton{
-                id:btn_upload
-                text:"Upload"
+                id: btn_upload
+                text: qsTr("Upload")
                 onClicked: {
-                    showInfo("Upload")
+                    showInfo(qsTr("Upload"))
                 }
             }
             FluFilledButton{
-                id:btn_save
-                text:"Save"
+                id: btn_save
+                text: qsTr("Save")
                 onClicked: {
-                    showInfo("Save")
+                    showInfo(qsTr("Save"))
                 }
             }
             FluIconButton{
-                id:btn_more
+                id: btn_more
                 iconSource: FluentIcons.More
                 onClicked: {
-                    showInfo("More")
+                    showInfo(qsTr("More"))
                 }
             }
         }

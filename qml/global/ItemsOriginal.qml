@@ -46,11 +46,8 @@ FluObject{
             infoBadge:FluBadge{
                 count: item_cfg_radar.count
             }
-            title:"Radar Parameters"
+            title:"雷达参数配置"
             menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
             url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/radar_parameters.qml"
             onTap:{
                 item_cfg_radar.count = 0
@@ -65,11 +62,8 @@ FluObject{
             infoBadge:FluBadge{
                 count: item_cfg_radar.count
             }
-            title:"Camera Parameters"
+            title:"摄像头参数配置"
             menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
             url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/camera_parameters.qml"
             onTap:{
                 item_cfg_radar.count = 0
@@ -84,12 +78,9 @@ FluObject{
             infoBadge:FluBadge{
                 count: item_cfg_file.count
             }
-            title:"File Path"
+            title:"文件参数配置"
             menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
-            url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/camera_parameters.qml"
+            url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/file_parameters.qml"
             onTap:{
                 item_cfg_file.count = 0
                 navigationView.push(url)
@@ -121,35 +112,16 @@ FluObject{
     FluPaneItem{
         id:item_processor
         count: 0
-        title:Lang.home
+        title:"数据处理"
         menuDelegate: paneItemMenu
         infoBadge:FluBadge{
             count: item_processor.count
         }
         icon:FluentIcons.GridView
-        url:"qrc:/UAV_SAR_UpperMonitor/qml/window/CameraWindow.qml"
+        url:"qrc:/UAV_SAR_UpperMonitor/qml/page/ProcessPage.qml"
         onTap:{
             if(navigationView.getCurrentUrl()){
                 item_processor.count = 0
-            }
-            navigationView.push(url)
-        }
-    }
-
-    //预览
-    FluPaneItem{
-        id:item_previewer
-        count: 0
-        title:Lang.home
-        menuDelegate: paneItemMenu
-        infoBadge:FluBadge{
-            count: item_previewer.count
-        }
-        icon:FluentIcons.GridView
-        url:"qrc:/UAV_SAR_UpperMonitor/qml/window/CameraWindow.qml"
-        onTap:{
-            if(navigationView.getCurrentUrl()){
-                item_previewer.count = 0
             }
             navigationView.push(url)
         }

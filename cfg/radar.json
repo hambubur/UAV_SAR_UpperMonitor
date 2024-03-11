@@ -1,0 +1,943 @@
+{
+  "Channel": {
+    "ChannelTX": {
+      "title": [
+        "TX0使能",
+        "TX1使能",
+        "TX2使能"
+      ],
+      "value": [
+        true,
+        true,
+        false
+      ],
+      "unit": "",
+      "param": "channelTx",
+      "desc": "TX使能",
+      "visible": true,
+      "locked": false
+    },
+    "ChannelRX": {
+      "title": [
+        "RX0使能",
+        "RX1使能",
+        "RX2使能",
+        "RX3使能"
+      ],
+      "value": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unit": "",
+      "param": "channelRx",
+      "desc": "RX使能",
+      "visible": true,
+      "locked": false
+    },
+    "Cascading": {
+      "title": "级联",
+      "value": 0,
+      "unit": "",
+      "param": "cascading",
+      "desc": "级联",
+      "visible": false,
+      "locked": false
+    }
+  },
+  "Profile": [
+    [
+      [
+        {
+          "title": "配置ID",
+          "value": 0,
+          "unit": "",
+          "param": "profileId",
+          "desc": "雷达配置参数页ID",
+          "visible": true,
+          "locked": true
+        },
+        {
+          "title": "VCO",
+          "value": 1,
+          "unit": "",
+          "param": "pfVcoSelect",
+          "desc": "VCO选择",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 76,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 40,
+          "unit": "us",
+          "param": "idleTimeConst",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 6,
+          "unit": "us",
+          "param": "adcStartTimeConst",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "斜坡结束时间",
+          "value": 60,
+          "unit": "us",
+          "param": "rampEndTime",
+          "desc": "斜坡结束时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 80,
+          "unit": "MHz/us",
+          "param": "freqSlopeConst",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "TX开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "txStartTime",
+          "desc": "TX开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC采样数",
+          "value": 1024,
+          "unit": "",
+          "param": "numAdcSamples",
+          "desc": "ADC采样数",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "数字输出采样率",
+          "value": 22.5,
+          "unit": "MHz",
+          "param": "digOutSampleRate",
+          "desc": "数字输出采样率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF1截止频率",
+          "value": 175,
+          "unit": "KHz",
+          "param": "hpf1CornerFreq",
+          "desc": "HPF1截止频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF2截止频率",
+          "value": 350,
+          "unit": "KHz",
+          "param": "hpf2CornerFreq",
+          "desc": "HPF2截止频率",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0功率回退",
+            "TX1功率回退",
+            "TX2功率回退"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "",
+          "param": "txOutPowerBackoffCode",
+          "desc": "发射功率回退码",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "TX0相移",
+            "TX1相移",
+            "TX2相移"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "deg",
+          "param": "txPhaseShifter",
+          "desc": "发射相移",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "RX增益",
+            "RF增益"
+          ],
+          "value": [
+            30,
+            30
+          ],
+          "unit": "dB",
+          "param": "rxGain",
+          "desc": "接收增益",
+          "visible": true,
+          "locked": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "title": "配置ID",
+          "value": 1 ,
+          "unit": "",
+          "param": "profileId",
+          "desc": "雷达配置参数页ID",
+          "visible": true,
+          "locked": true
+        },
+        {
+          "title": "VCO",
+          "value": 1,
+          "unit": "",
+          "param": "pfVcoSelect",
+          "desc": "VCO选择",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 76,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 40,
+          "unit": "us",
+          "param": "idleTimeConst",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 6,
+          "unit": "us",
+          "param": "adcStartTimeConst",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "斜坡结束时间",
+          "value": 60,
+          "unit": "us",
+          "param": "rampEndTime",
+          "desc": "斜坡结束时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 80,
+          "unit": "MHz/us",
+          "param": "freqSlopeConst",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "TX开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "txStartTime",
+          "desc": "TX开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC采样数",
+          "value": 1024,
+          "unit": "",
+          "param": "numAdcSamples",
+          "desc": "ADC采样数",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "数字输出采样率",
+          "value": 22.5,
+          "unit": "MHz",
+          "param": "digOutSampleRate",
+          "desc": "数字输出采样率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF1截止频率",
+          "value": 175,
+          "unit": "KHz",
+          "param": "hpf1CornerFreq",
+          "desc": "HPF1截止频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF2截止频率",
+          "value": 350,
+          "unit": "KHz",
+          "param": "hpf2CornerFreq",
+          "desc": "HPF2截止频率",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0功率回退",
+            "TX1功率回退",
+            "TX2功率回退"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "",
+          "param": "txOutPowerBackoffCode",
+          "desc": "发射功率回退码",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "TX0相移",
+            "TX1相移",
+            "TX2相移"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "deg",
+          "param": "txPhaseShifter",
+          "desc": "发射相移",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "RX增益",
+            "RF增益"
+          ],
+          "value": [
+            30,
+            30
+          ],
+          "unit": "dB",
+          "param": "rxGain",
+          "desc": "接收增益",
+          "visible": true,
+          "locked": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "title": "配置ID",
+          "value": 2,
+          "unit": "",
+          "param": "profileId",
+          "desc": "雷达配置参数页ID",
+          "visible": true,
+          "locked": true
+        },
+        {
+          "title": "VCO",
+          "value": 1,
+          "unit": "",
+          "param": "pfVcoSelect",
+          "desc": "VCO选择",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 76,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 40,
+          "unit": "us",
+          "param": "idleTimeConst",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 6,
+          "unit": "us",
+          "param": "adcStartTimeConst",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "斜坡结束时间",
+          "value": 60,
+          "unit": "us",
+          "param": "rampEndTime",
+          "desc": "斜坡结束时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 80,
+          "unit": "MHz/us",
+          "param": "freqSlopeConst",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "TX开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "txStartTime",
+          "desc": "TX开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC采样数",
+          "value": 1024,
+          "unit": "",
+          "param": "numAdcSamples",
+          "desc": "ADC采样数",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "数字输出采样率",
+          "value": 22.5,
+          "unit": "MHz",
+          "param": "digOutSampleRate",
+          "desc": "数字输出采样率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF1截止频率",
+          "value": 175,
+          "unit": "KHz",
+          "param": "hpf1CornerFreq",
+          "desc": "HPF1截止频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF2截止频率",
+          "value": 350,
+          "unit": "KHz",
+          "param": "hpf2CornerFreq",
+          "desc": "HPF2截止频率",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0功率回退",
+            "TX1功率回退",
+            "TX2功率回退"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "",
+          "param": "txOutPowerBackoffCode",
+          "desc": "发射功率回退码",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "TX0相移",
+            "TX1相移",
+            "TX2相移"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "deg",
+          "param": "txPhaseShifter",
+          "desc": "发射相移",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "RX增益",
+            "RF增益"
+          ],
+          "value": [
+            30,
+            30
+          ],
+          "unit": "dB",
+          "param": "rxGain",
+          "desc": "接收增益",
+          "visible": true,
+          "locked": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "title": "配置ID",
+          "value": 3,
+          "unit": "",
+          "param": "profileId",
+          "desc": "雷达配置参数页ID",
+          "visible": true,
+          "locked": true
+        },
+        {
+          "title": "VCO",
+          "value": 1,
+          "unit": "",
+          "param": "pfVcoSelect",
+          "desc": "VCO选择",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 76,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 40,
+          "unit": "us",
+          "param": "idleTimeConst",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 6,
+          "unit": "us",
+          "param": "adcStartTimeConst",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "斜坡结束时间",
+          "value": 60,
+          "unit": "us",
+          "param": "rampEndTime",
+          "desc": "斜坡结束时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 80,
+          "unit": "MHz/us",
+          "param": "freqSlopeConst",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "TX开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "txStartTime",
+          "desc": "TX开始时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC采样数",
+          "value": 1024,
+          "unit": "",
+          "param": "numAdcSamples",
+          "desc": "ADC采样数",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "数字输出采样率",
+          "value": 22.5,
+          "unit": "MHz",
+          "param": "digOutSampleRate",
+          "desc": "数字输出采样率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF1截止频率",
+          "value": 175,
+          "unit": "KHz",
+          "param": "hpf1CornerFreq",
+          "desc": "HPF1截止频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "HPF2截止频率",
+          "value": 350,
+          "unit": "KHz",
+          "param": "hpf2CornerFreq",
+          "desc": "HPF2截止频率",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0功率回退",
+            "TX1功率回退",
+            "TX2功率回退"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "",
+          "param": "txOutPowerBackoffCode",
+          "desc": "发射功率回退码",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "TX0相移",
+            "TX1相移",
+            "TX2相移"
+          ],
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "unit": "deg",
+          "param": "txPhaseShifter",
+          "desc": "发射相移",
+          "visible": false,
+          "locked": false
+        },
+        {
+          "title": [
+            "RX增益",
+            "RF增益"
+          ],
+          "value": [
+            30,
+            30
+          ],
+          "unit": "dB",
+          "param": "rxGain",
+          "desc": "接收增益",
+          "visible": true,
+          "locked": false
+        }
+      ]
+    ]
+  ],
+  "Chirp": [
+    [
+      {
+        "title": "Chirp起始索引",
+        "value": 0,
+        "unit": "",
+        "param": "chirpStartIdx",
+        "desc": "Chirp起始索引",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "Chirp结束索引",
+        "value": 63,
+        "unit": "",
+        "param": "chirpEndIdx",
+        "desc": "Chirp结束索引",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "配置文件ID",
+        "value": 0,
+        "unit": "",
+        "param": "profileIdCPCFG",
+        "desc": "雷达配置文件ID",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "起始频率",
+        "value": 0,
+        "unit": "GHz",
+        "param": "startFreqConst",
+        "desc": "起始频率",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "频率斜率",
+        "value": 0,
+        "unit": "MHz/us",
+        "param": "freqSlopeVar",
+        "desc": "频率斜率",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "空闲时间",
+        "value": 0,
+        "unit": "us",
+        "param": "idleTimeVar",
+        "desc": "空闲时间",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "ADC开始时间",
+        "value": 0,
+        "unit": "us",
+        "param": "adcStartTimeVar",
+        "desc": "ADC开始时间",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": [
+          "TX0使能",
+          "TX1使能",
+          "TX2使能"
+        ],
+        "value": [
+          true,
+          true,
+          false
+        ],
+        "unit": "",
+        "param": "txEnable",
+        "desc": "TX使能",
+        "visible": true,
+        "locked": false
+      }
+    ],
+    [
+      {
+        "title": "Chirp起始索引",
+        "value": 64,
+        "unit": "",
+        "param": "chirpStartIdx",
+        "desc": "Chirp起始索引",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "Chirp结束索引",
+        "value": 127,
+        "unit": "",
+        "param": "chirpEndIdx",
+        "desc": "Chirp结束索引",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "配置文件ID",
+        "value": 0,
+        "unit": "",
+        "param": "profileIdCPCFG",
+        "desc": "雷达配置文件ID",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "起始频率",
+        "value": 0,
+        "unit": "GHz",
+        "param": "startFreqConst",
+        "desc": "起始频率",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "频率斜率",
+        "value": 0,
+        "unit": "MHz/us",
+        "param": "freqSlopeVar",
+        "desc": "频率斜率",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "空闲时间",
+        "value": 0,
+        "unit": "us",
+        "param": "idleTimeVar",
+        "desc": "空闲时间",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": "ADC开始时间",
+        "value": 0,
+        "unit": "us",
+        "param": "adcStartTimeVar",
+        "desc": "ADC开始时间",
+        "visible": true,
+        "locked": false
+      },
+      {
+        "title": [
+          "TX0使能",
+          "TX1使能",
+          "TX2使能"
+        ],
+        "value": [
+          true,
+          true,
+          false
+        ],
+        "unit": "",
+        "param": "txEnable",
+        "desc": "TX使能",
+        "visible": true,
+        "locked": false
+      }
+    ]
+  ],
+  "Frame": {
+    "ChirpStartIndex": {
+      "title": "Chirp起始索引",
+      "value": 0,
+      "unit": "",
+      "param": "chirpStartIdxFCF",
+      "desc": "Chirp起始索引",
+      "visible": true,
+      "locked": false
+    },
+    "ChirpEndIndex": {
+      "title": "Chirp结束索引",
+      "value": 127,
+      "unit": "",
+      "param": "chirpEndIdxFCF",
+      "desc": "Chirp结束索引",
+      "visible": true,
+      "locked": false
+    },
+    "NumFrames": {
+      "title": "帧数",
+      "value": 0,
+      "unit": "",
+      "param": "frameCount",
+      "desc": "帧数",
+      "visible": true,
+      "locked": false
+    },
+    "NumLoops": {
+      "title": "循环次数",
+      "value": 0,
+      "unit": "",
+      "param": "loopCount",
+      "desc": "循环次数",
+      "visible": true,
+      "locked": false
+    },
+    "FramePeriodicity": {
+      "title": "帧周期",
+      "value": 0,
+      "unit": "ms",
+      "param": "periodicity",
+      "desc": "帧周期",
+      "visible": true,
+      "locked": false
+    },
+    "TriggerDelay": {
+      "title": "触发延迟",
+      "value": 0,
+      "unit": "us",
+      "param": "triggerDelay",
+      "desc": "触发延迟",
+      "visible": true,
+      "locked": false
+    },
+    "NumAdcSamples": {
+      "title": "ADC采样数",
+      "value": 0,
+      "unit": "",
+      "param": "numAdcSamples",
+      "desc": "ADC采样数",
+      "visible": true,
+      "locked": false
+    },
+    "TriggerSelect": {
+      "title": "触发选择",
+      "value": 0,
+      "unit": "",
+      "param": "triggerSelect",
+      "desc": "触发选择",
+      "visible": true,
+      "locked": false
+    }
+  }
+}

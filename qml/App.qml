@@ -42,7 +42,8 @@ Item {
             // "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml",
             // "/pageWindow":"qrc:/example/qml/window/PageWindow.qml"
             "/":"qrc:/UAV_SAR_UpperMonitor/qml/window/MainWindow.qml",
-            "/settings":"qrc:/UAV_SAR_UpperMonitor/qml/window/SettingstWindow.qml"
+            "/settings":"qrc:/UAV_SAR_UpperMonitor/qml/window/SettingsWindow.qml",
+            "/cameraWindow":"qrc:/UAV_SAR_UpperMonitor/qml/window/PageWindow.qml"
         }
         FluApp.initialRoute = "/"
         FluApp.run()

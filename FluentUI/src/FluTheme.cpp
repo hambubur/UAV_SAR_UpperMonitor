@@ -17,8 +17,8 @@ FluTheme::FluTheme(QObject *parent):QObject{parent}{
         Q_EMIT darkChanged();
     });
     connect(this,&FluTheme::darkChanged,this,[=]{refreshColors();});
-    connect(this,&FluTheme::themeColorChanged,this,[=]{refreshColors();});
-    themeColor(FluColors::getInstance()->Blue());
+    connect(this,&FluTheme::accentColorChanged,this,[=]{refreshColors();});
+    accentColor(FluColors::getInstance()->Blue());
     darkMode(FluThemeType::DarkMode::Light);
     nativeText(false);
     enableAnimation(true);
@@ -28,8 +28,9 @@ FluTheme::FluTheme(QObject *parent):QObject{parent}{
 
 void FluTheme::refreshColors(){
     auto isDark = dark();
-    primaryColor(isDark ? _themeColor->lighter() : _themeColor->dark());
-    backgroundColor(isDark ? QColor(0,0,0,255) : QColor(1,1,1,255));
+    primaryColor(isDark ? _accentColor->lighter() : _accentColor->dark());
+    backgroundColor(isDark ? QColor(0,0,0,255) : QColor(255,255,255,255));
+    dividerColor(isDark ? QColor(80,80,80,255) : QColor(210,210,210,255));
     windowBackgroundColor(isDark ? QColor(32,32,32,255) : QColor(237,237,237,255));
     windowActiveBackgroundColor(isDark ? QColor(26,26,26,255) : QColor(243,243,243,255));
     fontPrimaryColor(isDark ? QColor(248,248,248,255) : QColor(7,7,7,255));

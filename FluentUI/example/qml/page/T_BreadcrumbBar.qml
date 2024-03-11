@@ -3,12 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title:"BreadcurmbBar"
+    title: qsTr("BreadcurmbBar")
 
     Component.onCompleted: {
         var items = []
@@ -49,7 +48,7 @@ FluScrollablePage{
             spacing: 10
 
             FluFilledButton{
-                text:"Reset sample"
+                text: qsTr("Reset sample")
                 onClicked:{
                     var items = []
                     for(var i=0;i<10;i++){
@@ -67,7 +66,6 @@ FluScrollablePage{
                 Layout.fillWidth: true
                 onClickItem:
                     (model)=>{
-                        //不是点击最后一个item元素
                         if(model.index+1!==count()){
                             breadcrumb_2.remove(model.index+1,count()-model.index-1)
                         }

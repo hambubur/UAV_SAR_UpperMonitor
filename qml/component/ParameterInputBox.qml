@@ -6,12 +6,11 @@ import FluentUI
 
 Item {
     id: wrapper
-    width: childrenRect.width
-    height: childrenRect.height
+    height: 50
 
-    property int name_width: 100
-    property int box_width: 60
-    property int unit_width: 50
+    property int name_width: 75
+    property int box_width: 50
+    property int unit_width: 75
 
     property bool is_editable: true
     property string key
@@ -19,42 +18,63 @@ Item {
     property string unit
 
     // name
-    RowLayout {
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        height: childrenRect.height
-        spacing: 8
+    FluArea{
+        anchors.fill: parent
+        paddings: 5
+        RowLayout {
+            anchors.centerIn: parent.Center
+            spacing: 8
 
-        Rectangle{
-            width: wrapper.name_width
-            FluText{
-                id: para_key
-                anchors.verticalCenter: parent.verticalCenter
-                text: key
-                font: FluTextStyle.Body
+            Item{
+                width: wrapper.name_width
+                height: wrapper.height-10
+                FluText{
+                    id: para_key
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: 10
+                    text: key
+    //                font: FluTextStyle.Body
+                    font{
+                        // family: "Smiley Sans"
+                        pixelSize: 14
+                    }
+                }
+            }
+
+            Item{
+                width: wrapper.box_width
+                height: wrapper.height-10
+                FluTextBox{
+                    id: para_value
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width
+                    text: value
+                    disabled: is_editable ? false : true
+                    cleanEnabled: false
+                }
+            }
+
+            Item{
+                width: wrapper.unit_width
+                height: wrapper.height-10
+                FluText{
+                    id: para_unit
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: unit
+    //                font: FluTextStyle.Body
+                    font{
+                        // family: "Smiley Sans"
+                        pixelSize: 14
+                    }
+
+                }
             }
         }
+    }
 
-        Rectangle{
-            width: wrapper.box_width
-            FluTextBox{
-                id: para_value
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.width
-                text: value
-                disabled: is_editable ? false : true
-                cleanEnabled: false
-            }
-        }
-
-        Rectangle{
-            width: wrapper.unit_width
-            FluText{
-                id: para_unit
-                anchors.verticalCenter: parent.verticalCenter
-                text: unit
-                font: FluTextStyle.Body
-            }
-        }
+    Binding{
+        target: wrapper
+        property: "width"
+        value: name_width+box_width+unit_width+40
     }
 }

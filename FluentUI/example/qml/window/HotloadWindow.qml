@@ -3,13 +3,12 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 import example 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluWindow {
 
     id:window
-    title:"热加载"
+    title: qsTr("Hot Loader")
     width: 800
     height: 600
     minimumWidth: 520
@@ -26,7 +25,7 @@ FluWindow {
         FluRemoteLoader{
             id:loader
             anchors.fill: parent
-            statusMode: FluStatusViewType.Success
+            statusMode: FluStatusLayoutType.Success
             lazy: true
             errorItem: Item{
                 FluText{
@@ -41,10 +40,10 @@ FluWindow {
             }
         }
         FluText{
-            text:"拖入qml文件"
+            text: qsTr("Drag in a qml file")
             font.pixelSize: 26
             anchors.centerIn: parent
-            visible: !loader.itemLodaer().item && loader.statusMode === FluStatusViewType.Success
+            visible: !loader.itemLodaer().item && loader.statusMode === FluStatusLayoutType.Success
         }
         Rectangle{
             radius: 4

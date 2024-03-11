@@ -4,12 +4,12 @@ import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
 import Qt.labs.platform
-import "qrc:///example/qml/component"
+import "../component"
 
 FluContentPage{
 
     id:root
-    title:"Network"
+    title: qsTr("Network")
 
     FluNetworkCallable{
         id:callable

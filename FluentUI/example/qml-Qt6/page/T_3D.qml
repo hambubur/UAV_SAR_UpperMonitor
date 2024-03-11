@@ -10,7 +10,7 @@ import Qt3D.Extras
 import QtQuick.Scene3D
 import QtQuick.Dialogs
 import Qt.labs.platform
-import "qrc:///example/qml/component"
+import "../component"
 
 FluContentPage{
 
@@ -55,7 +55,7 @@ FluContentPage{
             }
             PhongMaterial {
                 id: material
-                ambient: color_picker.colorValue
+                ambient: color_picker.current
             }
             Transform{
                 id:transform
@@ -92,10 +92,7 @@ FluContentPage{
             }
             FluColorPicker{
                 id:color_picker
-                enableAlphaChannel:false
-                Component.onCompleted: {
-                    setColor("gray")
-                }
+                current: "gray"
             }
         }
 

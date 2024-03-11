@@ -1,0 +1,20 @@
+module UAV_SAR_UpperMonitor
+typeinfo UAV_SAR_UpperMonitor.qmltypes
+prefer :/UAV_SAR_UpperMonitor/
+App 1.0 qml/App.qml
+CodeExpander 1.0 qml/component/CodeExpander.qml
+ParaList 1.0 qml/component/ParaList.qml
+ParameterInputBox 1.0 qml/component/ParameterInputBox.qml
+Cfg 1.0 qml/global/Cfg.qml
+ItemsFooter 1.0 qml/global/ItemsFooter.qml
+ItemsOriginal 1.0 qml/global/ItemsOriginal.qml
+Lang 1.0 qml/global/Lang.qml
+CameraPage 1.0 qml/page/CameraPage.qml
+ConfigPage 1.0 qml/page/ConfigPage.qml
+HomePage 1.0 qml/page/HomePage.qml
+SettingsViewModel 1.0 qml/viewmodel/SettingsViewModel.qml
+TextBoxViewModel 1.0 qml/viewmodel/TextBoxViewModel.qml
+MainWindow 1.0 qml/window/MainWindow.qml
+PageWindow 1.0 qml/window/PageWindow.qml
+SettingsWindow 1.0 qml/window/SettingsWindow.qml
+

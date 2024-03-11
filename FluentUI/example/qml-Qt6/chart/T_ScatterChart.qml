@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "qrc:///example/qml/component"
+import "../component"
 
 FluScrollablePage{
 
-    title:"Scatter Chart"
+    title: qsTr("Scatter Chart")
 
     function randomScalingFactor() {
         return Math.random().toFixed(1);

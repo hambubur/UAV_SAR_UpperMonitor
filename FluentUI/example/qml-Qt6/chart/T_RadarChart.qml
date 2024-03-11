@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "qrc:///example/qml/component"
+import "../component"
 
 FluScrollablePage{
 
-    title:"Radar Chart"
+    title: qsTr("Radar Chart")
 
     FluArea{
         width: 500

@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Controls.Basic
+import QtMultimedia 6.4
 import FluentUI
 import "qrc:///UAV_SAR_UpperMonitor/qml/component"
 import "qrc:///UAV_SAR_UpperMonitor/qml/global"
@@ -15,6 +16,220 @@ FluScrollablePage{
     FluText{
         Layout.topMargin: 20
         text:"暂时没想好写点儿啥"
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height:270
+        paddings: 10
+
+        RowLayout{
+            anchors.fill: parent
+            spacing: 2
+
+            FluArea{
+                id: cameraDisplayArea
+
+                width: (parent.width - 2)/2
+                Layout.fillHeight: true
+
+                states: [
+                    State {
+                        name: "PhotoCapture"
+                        StateChangeScript {
+                            script: {
+                                camera.start()
+                            }
+                        }
+                    },
+                    State {
+                        name: "PhotoPreview"
+                        StateChangeScript {
+                            script: {
+                                camera.stop()
+                            }
+                        }
+                    },
+                    State {
+                        name: "VideoCapture"
+                        StateChangeScript {
+                            script: {
+                                camera.start()
+                            }
+                        }
+                    },
+                    State {
+                        name: "VideoPreview"
+                        StateChangeScript {
+                            script: {
+                                camera.stop()
+                            }
+                        }
+                    }
+                ]
+
+                CaptureSession {
+                    id: captureSession
+                    camera: Camera {
+                        id: camera
+                    }
+                    imageCapture: ImageCapture {
+                        id: imageCapture
+                    }
+
+                    recorder: MediaRecorder {
+                        id: recorder
+            //             resolution: "640x480"
+            //             frameRate: 30
+                    }
+                    videoOutput: viewfinder
+                }
+
+                Item{
+                    signal closed
+
+                    id : photoPreview
+
+                    anchors.fill : parent
+                    onClosed: cameraDisplayArea.state = "PhotoCapture"
+                    // visible: (cameraDisplayArea.state === "PhotoPreview")
+                    visible: false
+                    focus: visible  // focus是为了让鼠标点击事件生效
+
+
+                    Image {
+                        id: preview
+                        anchors.fill : parent
+                        fillMode: Image.PreserveAspectFit
+                        source: parent.visible ? imageCapture.preview : ""
+                        smooth: true
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            parent.closed();
+                        }
+                    }
+                }
+
+                Item{
+                    id: videoPreview
+
+                    signal closed
+
+                    anchors.fill : parent
+                    onClosed: cameraDisplayArea.state = "VideoCapture"
+                    // visible: (cameraDisplayArea.state === "VideoPreview")
+                    visible: false
+                    focus: visible
+
+                    MediaPlayer {
+                        id: player
+
+                        source: parent.visible ? recorder.actualLocation : ""
+
+                        //switch back to viewfinder after playback finished
+                        onMediaStatusChanged: {
+                            if (mediaStatus == MediaPlayer.EndOfMedia)
+                                videoPreview.closed();
+                        }
+                        onSourceChanged: {
+                            if (videoPreview.visible && source !== "")
+                                play();
+                        }
+
+                        videoOutput: output
+                        audioOutput: AudioOutput {
+                        }
+                    }
+
+                    VideoOutput {
+                        id: output
+                        anchors.fill : parent
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            videoPreview.closed();
+                        }
+                    }
+                }
+
+                VideoOutput {
+                    id: viewfinder
+                    // visible: ((cameraDisplayArea.state === "PhotoCapture") || (cameraDisplayArea.state === "VideoCapture"))
+                    visible: true
+                    anchors.fill: parent
+                }
+            }
+
+            FluArea{
+                id: cameraConfigArea
+
+                width: (parent.width - 2)/2
+                Layout.fillHeight: true
+
+                ColumnLayout{
+                    anchors.fill: parent
+                    spacing: 5
+
+                    Row{
+                        spacing: 5
+
+                        FluText{
+                            text: "模式"
+                            font: FluTextStyle.BodyStrong
+                            Layout.bottomMargin: 4
+                        }
+
+                        Flow{
+                            Repeater{
+                                model: [{title:"拍照模式",state:"PhotoCapture"},
+                                        {title:"照片预览",state:"PhotoPreview"},
+                                        {title:"录像模式",state:"VideoCapture"},
+                                        {title:"视频预览",state:"VideoPreview"}]
+                                delegate: FluRadioButton{
+                                    checked: cameraDisplayArea.state===modelData.state
+                                    text: modelData.title
+                                    clickListener: function(){
+                                        cameraDisplayArea.state = modelData.state
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                    Row{
+                        spacing: 5
+                        Layout.fillWidth: true
+                        FluButton{
+                            height: 25
+                            width: (parent.width-5)/2
+                            text:"启动"
+                            onClicked: {
+                                camera.start()
+                                showSuccess("启动成功")
+                            }
+                        }
+                        FluButton{
+                            height: 25
+                            width: (parent.width-5)/2
+                            text:"停止"
+                            onClicked: {
+                                camera.stop()
+                                showSuccess("停止成功")
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
     }
 
     FluArea{

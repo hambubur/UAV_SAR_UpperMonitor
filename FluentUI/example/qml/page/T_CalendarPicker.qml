@@ -3,12 +3,11 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title:"CalendarPicker"
+    title: qsTr("CalendarPicker")
 
     FluArea{
         Layout.fillWidth: true

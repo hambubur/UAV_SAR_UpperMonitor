@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
 import FluentUI
-import "qrc:///example/qml/component"
+import "../component"
 
 FluScrollablePage{
 
-    title:"Rectangle"
+    title: qsTr("Rectangle")
 
     FluArea{
         Layout.fillWidth: true

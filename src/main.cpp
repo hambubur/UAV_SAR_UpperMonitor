@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
+#include <QFontDatabase>
+#include <QDebug>
 
 #include "component/paralist.h"
 #include "component/paralistmodel.h"
@@ -25,6 +27,9 @@ int main(int argc, char *argv[])
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
 
     QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon("UAV_SAR_UpperMonitor/res/img/favicon.ico"));
+    QFontDatabase::addApplicationFont("UAV_SAR_UpperMonitor/res/font/SmileySans-Oblique.ttf");
+
 
     ParaList paraList;
 
@@ -57,6 +62,9 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
+
+    // XMLHttpRequest 允许读取本地文件
+    qputenv("QML_XHR_ALLOW_FILE_READ", QByteArray("1"));
 
     return app.exec();
 }

@@ -24,7 +24,7 @@ FluObject{
         title:Lang.settings
         menuDelegate: paneItemMenu
         icon:FluentIcons.Settings
-        url:"qrc:/UAV_SAR_UpperMonitor/qml/window/SettingsWindow.qml"
+        url:"qrc:/UAV_SAR_UpperMonitor/qml/page/SettingsPage.qml"
         onTap:{
             navigationView.push(url)
         }

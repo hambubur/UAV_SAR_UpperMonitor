@@ -3,11 +3,11 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
-import "qrc:///example/qml/component"
+import "../component"
 
 FluScrollablePage{
 
-    title:"ShortcutPicker"
+    title: qsTr("ShortcutPicker")
 
     FluArea{
         Layout.fillWidth: true
@@ -16,6 +16,11 @@ FluScrollablePage{
         paddings: 10
         FluShortcutPicker{
             anchors.verticalCenter: parent.verticalCenter
+            title: qsTr("Activate the Shortcut")
+            message: qsTr("Press the key combination to change the shortcut")
+            positiveText: qsTr("Save")
+            neutralText: qsTr("Cancel")
+            negativeText: qsTr("Reset")
         }
     }
     CodeExpander{
@@ -27,4 +32,5 @@ FluScrollablePage{
     }
 
 }
+
 

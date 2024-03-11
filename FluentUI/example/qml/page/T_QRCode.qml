@@ -3,20 +3,19 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
-import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title:"QRCode"
+    title: qsTr("QRCode")
 
     FluQRCode{
         id:qrcode
         Layout.topMargin: 20
         size:slider_size.value
         text:text_box.text
-        color:color_picker.colorValue
-        bgColor: bgcolor_picker.colorValue
+        color:color_picker.current
+        bgColor: bgcolor_picker.current
         margins:slider_margins.value
         Layout.preferredWidth: size
         Layout.preferredHeight: size
@@ -45,9 +44,7 @@ FluScrollablePage{
         }
         FluColorPicker{
             id:color_picker
-            Component.onCompleted: {
-                setColor(Qt.rgba(0,0,0,1))
-            }
+            current: Qt.rgba(0,0,0,1)
         }
     }
 
@@ -60,9 +57,7 @@ FluScrollablePage{
         }
         FluColorPicker{
             id:bgcolor_picker
-            Component.onCompleted: {
-                setColor(Qt.rgba(1,1,1,1))
-            }
+            current: Qt.rgba(1,1,1,1)
         }
     }
 
