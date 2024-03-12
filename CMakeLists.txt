@@ -13,8 +13,8 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Multimedia)
 # list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/.cmake/)
 # include(GetGitRevisionDescription)
 
-#遍历所有Cpp文件
-file(GLOB_RECURSE CPP_FILES src/*.cpp src/*.h)
+#遍历所有src文件
+file(GLOB_RECURSE CPP_FILES src/*.cpp src/*.h src/*.hpp src/*.c)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND src_files ${filename})
@@ -25,26 +25,29 @@ endforeach(filepath)
 file(GLOB_RECURSE QML_PATHS qml/*.qml)
 foreach(filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND ui_files ${filename})
+    list(APPEND qml_files ${filename})
+endforeach(filepath)
+
+#遍历所有res文件
+file(GLOB_RECURSE RES_PATHS res/*)
+foreach(filepath ${RES_PATHS})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND res_files ${filename})
 endforeach(filepath)
 
 
 qt_standard_project_setup()
 
-qt_add_executable(UAV_SAR_UpperMonitor
+qt_add_executable(${PROJECT_NAME}
     main.cpp
     ${src_files}
 )
 
-qt_add_qml_module(UAV_SAR_UpperMonitor
+qt_add_qml_module(${PROJECT_NAME}
     URI UAV_SAR_UpperMonitor
     VERSION 1.0
-    QML_FILES ${ui_files}
-    RESOURCES res/img/favicon.ico
-        res/img/bg_home_header.png
-        res/font/SmileySans-Oblique.ttf
-        qml/global/qmldir
-        cfg/radar.json
+    QML_FILES ${qml_files}
+    RESOURCES ${res_files} qml/global/qmldir
     RESOURCE_PREFIX "/"
     )
 
@@ -60,14 +63,14 @@ set_target_properties(UAV_SAR_UpperMonitor PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(UAV_SAR_UpperMonitor
+target_link_libraries(${PROJECT_NAME}
     PRIVATE Qt6::Quick
     fluentuiplugin
     Qt6::Multimedia
 )
 
 include(GNUInstallDirs)
-install(TARGETS UAV_SAR_UpperMonitor
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
