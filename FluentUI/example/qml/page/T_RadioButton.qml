@@ -3,11 +3,12 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("RadioButton")
+    title:"RadioButton"
 
     FluArea{
         Layout.fillWidth: true
@@ -22,21 +23,21 @@ FluScrollablePage{
             }
             FluRadioButton{
                 disabled: radio_button_switch.checked
-                text: qsTr("Right")
+                text:"Right"
             }
             FluRadioButton{
                 disabled: radio_button_switch.checked
-                text: qsTr("Left")
+                text:"Left"
                 textRight: false
             }
         }
         FluToggleSwitch{
-            id: radio_button_switch
+            id:radio_button_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{
@@ -61,24 +62,24 @@ FluScrollablePage{
             }
             FluRadioButton{
                 disabled: radio_button_switch2.checked
-                text: qsTr("Radio Button_1")
+                text:"Radio Button_1"
             }
             FluRadioButton{
                 disabled: radio_button_switch2.checked
-                text: qsTr("Radio Button_2")
+                text:"Radio Button_2"
             }
             FluRadioButton{
                 disabled: radio_button_switch2.checked
-                text: qsTr("Radio Button_3")
+                text:"Radio Button_3"
             }
         }
         FluToggleSwitch{
-            id: radio_button_switch2
+            id:radio_button_switch2
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{

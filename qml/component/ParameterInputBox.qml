@@ -21,9 +21,10 @@ Item {
     FluArea{
         anchors.fill: parent
         paddings: 5
+        leftPadding: 15
         RowLayout {
             anchors.centerIn: parent.Center
-            spacing: 8
+            spacing: 5
 
             Item{
                 width: wrapper.name_width
@@ -33,9 +34,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
                     text: key
-    //                font: FluTextStyle.Body
                     font{
-                        // family: "Smiley Sans"
                         pixelSize: 14
                     }
                 }
@@ -61,9 +60,7 @@ Item {
                     id: para_unit
                     anchors.verticalCenter: parent.verticalCenter
                     text: unit
-    //                font: FluTextStyle.Body
                     font{
-                        // family: "Smiley Sans"
                         pixelSize: 14
                     }
 

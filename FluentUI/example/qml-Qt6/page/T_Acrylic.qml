@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("Acrylic")
+    title:"Acrylic"
 
     RowLayout{
         spacing: 10
@@ -64,7 +64,7 @@ FluScrollablePage{
                 width: 200
                 height: 200
                 tintOpacity: slider_tint_opacity.value/100
-                tintColor: color_picker.current
+                tintColor: color_picker.colorValue
                 blurRadius: slider_blur_radius.value
                 x:(image.width-width)/2
                 y:(image.height-height)/2
@@ -77,7 +77,6 @@ FluScrollablePage{
                 MouseArea {
                     property point clickPos: Qt.point(0,0)
                     id:drag_area
-                    preventStealing: true
                     anchors.fill: parent
                     onPressed: (mouse)=>{
                                    clickPos = Qt.point(mouse.x, mouse.y)

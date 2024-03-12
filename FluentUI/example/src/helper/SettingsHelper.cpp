@@ -24,7 +24,7 @@ QVariant SettingsHelper::get(const QString& key,QVariant def){
 }
 
 void SettingsHelper::init(char *argv[]){
-    QString applicationPath = QString::fromStdString(argv[0]);
+    auto applicationPath = QString::fromStdString(argv[0]);
     const QFileInfo fileInfo(applicationPath);
     const QString iniFileName = fileInfo.completeBaseName() + ".ini";
     const QString iniFilePath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/" + iniFileName;

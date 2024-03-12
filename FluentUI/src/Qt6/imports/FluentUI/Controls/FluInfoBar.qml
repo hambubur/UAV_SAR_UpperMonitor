@@ -46,10 +46,8 @@ FluObject {
         Component{
             id:screenlayoutComponent
             Column{
-                parent: Overlay.overlay
-                z:999
                 spacing: 20
-                width: root.width
+                width: parent.width
                 move: Transition {
                     NumberAnimation {
                         properties: "y"
@@ -198,7 +196,7 @@ FluObject {
                     FluText{
                         text: _super.moremsg
                         visible: _super.moremsg
-                        wrapMode : Text.WrapAnywhere
+                        wrapMode : Text.WordWrap
                         textColor: FluColors.Grey120
                         width: Math.min(implicitWidth,mcontrol.maxWidth)
                     }

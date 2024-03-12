@@ -3,13 +3,16 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/global"
+import "qrc:///example/qml/component"
+import "qrc:///example/qml/viewmodel"
 import "../component"
 import "../viewmodel"
 import "../global"
 
 FluScrollablePage{
 
-    title: qsTr("Settings")
+    title:"Settings"
 
     SettingsViewModel{
         id:viewmodel_settings
@@ -40,13 +43,13 @@ FluScrollablePage{
             spacing: 20
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: "%1 v%2".arg(qsTr("Current Version")).arg(AppInfo.version)
+                text:"当前版本 v%1".arg(AppInfo.version)
                 font: FluTextStyle.Body
                 anchors.verticalCenter: parent.verticalCenter
             }
             FluLoadingButton{
-                id: btn_checkupdate
-                text: qsTr("Check for Updates")
+                id:btn_checkupdate
+                text:"检查更新"
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: {
                     loading = true
@@ -62,7 +65,7 @@ FluScrollablePage{
         height: 50
         paddings: 10
         FluCheckBox{
-            text: qsTr("Use System AppBar")
+            text:"Use System AppBar"
             checked: FluApp.useSystemAppBar
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
@@ -78,7 +81,7 @@ FluScrollablePage{
         height: 50
         paddings: 10
         FluCheckBox{
-            text:qsTr("Fits AppBar Windows")
+            text:"fitsAppBarWindows"
             checked: window.fitsAppBarWindows
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
@@ -88,13 +91,13 @@ FluScrollablePage{
     }
 
     FluContentDialog{
-        id: dialog_restart
-        title: qsTr("Friendly Reminder")
-        message: qsTr("This action requires a restart of the program to take effect, is it restarted?")
+        id:dialog_restart
+        title:"友情提示"
+        message:"此操作需要重启才能生效，是否重新启动？"
         buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
-        negativeText: qsTr("Cancel")
-        positiveText: qsTr("OK")
-        onPositiveClicked: {
+        negativeText: "取消"
+        positiveText:"确定"
+        onPositiveClicked:{
             FluApp.exit(931)
         }
     }
@@ -112,13 +115,13 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Dark Mode")
+                text:Lang.dark_mode
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
             Repeater{
-                model: [{title:qsTr("System"),mode:FluThemeType.System},{title:qsTr("Light"),mode:FluThemeType.Light},{title:qsTr("Dark"),mode:FluThemeType.Dark}]
-                delegate: FluRadioButton{
+                model: [{title:"System",mode:FluThemeType.System},{title:"Light",mode:FluThemeType.Light},{title:"Dark",mode:FluThemeType.Dark}]
+                delegate:  FluRadioButton{
                     checked : FluTheme.darkMode === modelData.mode
                     text:modelData.title
                     clickListener:function(){
@@ -142,12 +145,12 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:qsTr("Navigation View Display Mode")
+                text:Lang.navigation_view_display_mode
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
             Repeater{
-                model: [{title:qsTr("Open"),mode:FluNavigationViewType.Open},{title:qsTr("Compact"),mode:FluNavigationViewType.Compact},{title:qsTr("Minimal"),mode:FluNavigationViewType.Minimal},{title:qsTr("Auto"),mode:FluNavigationViewType.Auto}]
+                model: [{title:"Open",mode:FluNavigationViewType.Open},{title:"Compact",mode:FluNavigationViewType.Compact},{title:"Minimal",mode:FluNavigationViewType.Minimal},{title:"Auto",mode:FluNavigationViewType.Auto}]
                 delegate: FluRadioButton{
                     checked : viewmodel_settings.displayMode===modelData.mode
                     text:modelData.title
@@ -156,16 +159,6 @@ FluScrollablePage{
                     }
                 }
             }
-        }
-    }
-
-    ListModel{
-        id:model_language
-        ListElement{
-            name:"en"
-        }
-        ListElement{
-            name:"zh"
         }
     }
 
@@ -181,21 +174,22 @@ FluScrollablePage{
                 top: parent.top
                 left: parent.left
             }
+
             FluText{
-                text:qsTr("Language")
+                text:Lang.locale
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
+
             Flow{
                 spacing: 5
                 Repeater{
-                    model: TranslateHelper.languages
+                    model: Lang.__localeList
                     delegate: FluRadioButton{
-                        checked: TranslateHelper.current === modelData
+                        checked: Lang.__locale === modelData
                         text:modelData
                         clickListener:function(){
-                            TranslateHelper.current = modelData
-                            dialog_restart.open()
+                            Lang.__locale = modelData
                         }
                     }
                 }

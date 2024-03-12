@@ -1,7 +1,7 @@
 #include "FluentUI.h"
 
 #include <QGuiApplication>
-#include "FluWindowLifecycle.h"
+#include "WindowLifecycle.h"
 #include "Def.h"
 #include "FluApp.h"
 #include "FluColors.h"
@@ -13,11 +13,11 @@
 #include "FluEventBus.h"
 #include "FluTreeModel.h"
 #include "FluViewModel.h"
+#include "Screenshot.h"
 #include "FluRectangle.h"
 #include "FluNetwork.h"
 #include "FluFramelessHelper.h"
-#include "FluQrCodeItem.h"
-#include "FluTableSortProxyModel.h"
+#include "QRCode.h"
 
 void FluentUI::registerTypes(QQmlEngine *engine){
     initializeEngine(engine,uri);
@@ -27,19 +27,28 @@ void FluentUI::registerTypes(QQmlEngine *engine){
 void FluentUI::registerTypes(const char *uri){
 #if (QT_VERSION < QT_VERSION_CHECK(6, 2, 0))
     Q_INIT_RESOURCE(fluentui);
-    qmlRegisterType<FluWindowLifecycle>(uri,major,minor,"FluWindowLifecycle");
-    qmlRegisterType<FluQrCodeItem>(uri,major,minor,"FluQrCodeItem");
+#endif
+    qmlRegisterType<WindowLifecycle>(uri,major,minor,"WindowLifecycle");
+    qmlRegisterType<QRCode>(uri,major,minor,"QRCode");
     qmlRegisterType<FluCaptcha>(uri,major,minor,"FluCaptcha");
     qmlRegisterType<FluWatermark>(uri,major,minor,"FluWatermark");
-    qmlRegisterType<FluAccentColor>(uri,major,minor,"FluAccentColor");
+    qmlRegisterType<ScreenshotBackground>(uri,major,minor,"ScreenshotBackground");
+    qmlRegisterType<Screenshot>(uri,major,minor,"Screenshot");
+    qmlRegisterType<FluColorSet>(uri,major,minor,"FluColorSet");
     qmlRegisterType<FluEvent>(uri,major,minor,"FluEvent");
     qmlRegisterType<FluViewModel>(uri,major,minor,"FluViewModel");
     qmlRegisterType<FluTreeModel>(uri,major,minor,"FluTreeModel");
     qmlRegisterType<FluRectangle>(uri,major,minor,"FluRectangle");
-    qmlRegisterType<FluNetworkCallable>(uri,major,minor,"FluNetworkCallable");
-    qmlRegisterType<FluNetworkParams>(uri,major,minor,"FluNetworkParams");
+    qmlRegisterType<NetworkCallable>(uri,major,minor,"FluNetworkCallable");
+    qmlRegisterType<NetworkParams>(uri,major,minor,"FluNetworkParams");
     qmlRegisterType<FluFramelessHelper>(uri,major,minor,"FluFramelessHelper");
-    qmlRegisterType<FluTableSortProxyModel>(uri,major,minor,"FluTableSortProxyModel");
+
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/ColorPicker.qml"),uri,major,minor,"ColorPicker");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/Checkerboard.qml"),uri,major,minor,"Checkerboard");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/ColorSlider.qml"),uri,major,minor,"ColorSlider");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/NumberBox.qml"),uri,major,minor,"NumberBox");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/PanelBorder.qml"),uri,major,minor,"PanelBorder");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/ColorPicker/Content/SBPicker.qml"),uri,major,minor,"SBPicker");
 
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAcrylic.qml"),uri,major,minor,"FluAcrylic");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluAppBar.qml"),uri,major,minor,"FluAppBar");
@@ -54,6 +63,7 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluChart.qml"),uri,major,minor,"FluChart");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluCheckBox.qml"),uri,major,minor,"FluCheckBox");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluColorPicker.qml"),uri,major,minor,"FluColorPicker");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluColorView.qml"),uri,major,minor,"FluColorView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluComboBox.qml"),uri,major,minor,"FluComboBox");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluContentDialog.qml"),uri,major,minor,"FluContentDialog");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluContentPage.qml"),uri,major,minor,"FluContentPage");
@@ -97,13 +107,14 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRadioButtons.qml"),uri,major,minor,"FluRadioButtons");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRatingControl.qml"),uri,major,minor,"FluRatingControl");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRemoteLoader.qml"),uri,major,minor,"FluRemoteLoader");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScreenshot.qml"),uri,major,minor,"FluScreenshot");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollBar.qml"),uri,major,minor,"FluScrollBar");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollIndicator.qml"),uri,major,minor,"FluScrollIndicator");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluScrollablePage.qml"),uri,major,minor,"FluScrollablePage");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShadow.qml"),uri,major,minor,"FluShadow");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSlider.qml"),uri,major,minor,"FluSlider");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSpinBox.qml"),uri,major,minor,"FluSpinBox");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStatusLayout.qml"),uri,major,minor,"FluStatusLayout");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStatusView.qml"),uri,major,minor,"FluStatusView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTabView.qml"),uri,major,minor,"FluTabView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTableView.qml"),uri,major,minor,"FluTableView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluText.qml"),uri,major,minor,"FluText");
@@ -120,31 +131,30 @@ void FluentUI::registerTypes(const char *uri){
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluTreeView.qml"),uri,major,minor,"FluTreeView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluWindow.qml"),uri,major,minor,"FluWindow");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluRangeSlider.qml"),uri,major,minor,"FluRangeSlider");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredLayout.qml"),uri,major,minor,"FluStaggeredLayout");
+    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluStaggeredView.qml"),uri,major,minor,"FluStaggeredView");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluProgressButton.qml"),uri,major,minor,"FluProgressButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoadingButton.qml"),uri,major,minor,"FluLoadingButton");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluClip.qml"),uri,major,minor,"FluClip");
     qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluLoader.qml"),uri,major,minor,"FluLoader");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluShortcutPicker.qml"),uri,major,minor,"FluShortcutPicker");
-    qmlRegisterType(QUrl("qrc:/qt/qml/FluentUI/Controls/FluSplitLayout.qml"),uri,major,minor,"FluSplitLayout");
+
 
     qmlRegisterUncreatableMetaObject(Fluent_Awesome::staticMetaObject,  uri,major,minor,"FluentIcons", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluThemeType::staticMetaObject,  uri,major,minor,"FluThemeType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluPageType::staticMetaObject,  uri,major,minor,"FluPageType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluWindowType::staticMetaObject,  uri,major,minor,"FluWindowType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTreeViewType::staticMetaObject,  uri,major,minor,"FluTreeViewType", "Access to enums & flags only");
-    qmlRegisterUncreatableMetaObject(FluStatusLayoutType::staticMetaObject,  uri,major,minor,"FluStatusLayoutType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluStatusViewType::staticMetaObject,  uri,major,minor,"FluStatusViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluContentDialogType::staticMetaObject,  uri,major,minor,"FluContentDialogType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimePickerType::staticMetaObject,  uri,major,minor,"FluTimePickerType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluCalendarViewType::staticMetaObject,  uri,major,minor,"FluCalendarViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTabViewType::staticMetaObject,  uri,major,minor,"FluTabViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNavigationViewType::staticMetaObject,  uri,major,minor,"FluNavigationViewType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluTimelineType::staticMetaObject,  uri,major,minor,"FluTimelineType", "Access to enums & flags only");
+    qmlRegisterUncreatableMetaObject(FluScreenshotType::staticMetaObject,  uri,major,minor,"FluScreenshotType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluViewModelType::staticMetaObject,  uri,major,minor,"FluViewModelType", "Access to enums & flags only");
     qmlRegisterUncreatableMetaObject(FluNetworkType::staticMetaObject,  uri,major,minor,"FluNetworkType", "Access to enums & flags only");
 
     qmlRegisterModule(uri,major,minor);
-#endif
 }
 
 void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
@@ -167,4 +177,5 @@ void FluentUI::initializeEngine(QQmlEngine *engine, const char *uri){
     engine->rootContext()->setContextProperty("FluEventBus",eventBus);
     FluNetwork* network = FluNetwork::getInstance();
     engine->rootContext()->setContextProperty("FluNetwork",network);
+    engine->addImportPath("qrc:/qt/qml");
 }

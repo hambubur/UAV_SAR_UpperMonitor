@@ -13,7 +13,7 @@ FluObject{
     FluPaneItemSeparator{}
 
     FluPaneItem{
-        title:qsTr("About")
+        title:Lang.about
         icon:FluentIcons.Contact
         onTapListener:function(){
             FluApp.navigate("/about")
@@ -21,7 +21,7 @@ FluObject{
     }
 
     FluPaneItem{
-        title:qsTr("Settings")
+        title:Lang.settings
         menuDelegate: paneItemMenu
         icon:FluentIcons.Settings
         url:"qrc:/example/qml/page/T_Settings.qml"

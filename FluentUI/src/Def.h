@@ -26,6 +26,16 @@ Q_ENUM_NS(CacheMode)
 QML_NAMED_ELEMENT(FluNetworkType)
 }
 
+namespace FluScreenshotType {
+Q_NAMESPACE
+enum CaptrueMode {
+    Pixmap = 0x0000,
+    File = 0x0001,
+};
+Q_ENUM_NS(CaptrueMode)
+QML_NAMED_ELEMENT(FluScreenshotType)
+}
+
 namespace FluThemeType {
 Q_NAMESPACE
 enum DarkMode {
@@ -82,7 +92,7 @@ Q_ENUM_NS(SelectionMode)
 QML_NAMED_ELEMENT(FluTreeViewType)
 }
 
-namespace FluStatusLayoutType {
+namespace FluStatusViewType {
 Q_NAMESPACE
 enum StatusMode {
     Loading = 0x0000,
@@ -91,7 +101,7 @@ enum StatusMode {
     Success = 0x0004
 };
 Q_ENUM_NS(StatusMode)
-QML_NAMED_ELEMENT(FluStatusLayoutType)
+QML_NAMED_ELEMENT(FluStatusViewType)
 }
 
 namespace FluContentDialogType {

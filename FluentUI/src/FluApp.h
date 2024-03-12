@@ -8,7 +8,7 @@
 #include <QQmlContext>
 #include <QJsonObject>
 #include <QQmlEngine>
-#include "FluWindowRegister.h"
+#include "FluRegister.h"
 #include "stdafx.h"
 #include "singleton.h"
 
@@ -18,6 +18,7 @@
 class FluApp : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY_AUTO(bool,vsync)
     Q_PROPERTY_AUTO(QString,initialRoute);
     Q_PROPERTY_AUTO(QJsonObject,routes);
     Q_PROPERTY_AUTO(bool,useSystemAppBar);
@@ -31,15 +32,14 @@ public:
     SINGLETON(FluApp)
     static FluApp *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return getInstance();}
     Q_INVOKABLE void run();
-    Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluWindowRegister* windowRegister = nullptr);
-    Q_INVOKABLE void init(QObject *target);
+    Q_INVOKABLE void navigate(const QString& route,const QJsonObject& argument  = {},FluRegister* fluRegister = nullptr);
+    Q_INVOKABLE void init(QObject *window);
     Q_INVOKABLE void exit(int retCode = 0);
-    Q_INVOKABLE QVariant createWindowRegister(QQuickWindow* window,const QString& path);
     void addWindow(QQuickWindow* window);
     void removeWindow(QQuickWindow* window);
 private:
     QMap<quint64, QQuickWindow*> _windows;
-    QQmlEngine *_engine;
+    QObject* _application = nullptr;
 };
 
 #endif // FLUAPP_H

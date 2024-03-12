@@ -6,6 +6,7 @@ import FluentUI
 Window {
     default property alias content: layout_content.data
     property string windowIcon: FluApp.windowIcon
+    property bool closeDestory: true
     property int launchMode: FluWindowType.Standard
     property var argument:({})
     property var background : com_background
@@ -29,25 +30,24 @@ Window {
         return FluTheme.windowBackgroundColor
     }
     property bool stayTop: false
+    property var _pageRegister
+    property string _route
     property bool showDark: false
     property bool showClose: true
     property bool showMinimize: true
     property bool showMaximize: true
     property bool showStayTop: true
     property bool autoMaximize: false
-    property bool autoVisible: true
-    property bool autoCenter: true
-    property bool autoDestory: true
     property bool useSystemAppBar
     property color resizeBorderColor: {
         if(window.active){
-            return FluTheme.dark ? "#333333" : "#6E6E6E"
+            return _accentColor
         }
         return FluTheme.dark ? "#3D3D3E" : "#A7A7A7"
     }
     property int resizeBorderWidth: 1
     property var closeListener: function(event){
-        if(autoDestory){
+        if(closeDestory){
             destoryOnClose()
         }else{
             visible = false
@@ -59,32 +59,27 @@ Window {
     signal firstVisible()
     property point _offsetXY : Qt.point(0,0)
     property var _originalPos
+    property color _accentColor : FluTheme.dark ? "#333333" : "#6E6E6E"
     property int _realHeight
     property int _realWidth
     property int _appBarHeight: appBar.height
-    property var _windowRegister
-    property string _route
     id:window
     color:"transparent"
     Component.onCompleted: {
         _realHeight = height
         _realWidth = width
-        useSystemAppBar = FluApp.useSystemAppBar
-        if(useSystemAppBar && autoCenter){
-            moveWindowToDesktopCenter()
-        }
+        moveWindowToDesktopCenter()
         fixWindowSize()
         lifecycle.onCompleted(window)
         initArgument(argument)
+        useSystemAppBar = FluApp.useSystemAppBar
         if(!useSystemAppBar){
             loader_frameless_helper.sourceComponent = com_frameless_helper
         }
-        if(window.autoVisible){
-            if(window.autoMaximize){
-                window.showMaximized()
-            }else{
-                window.show()
-            }
+        if(window.autoMaximize){
+            window.showMaximized()
+        }else{
+            window.show()
         }
     }
     Component.onDestruction: {
@@ -127,9 +122,7 @@ Window {
         id:com_frameless_helper
         FluFramelessHelper{
             onLoadCompleted:{
-                if(autoCenter){
-                    window.moveWindowToDesktopCenter()
-                }
+                window.moveWindowToDesktopCenter()
             }
         }
     }
@@ -207,14 +200,6 @@ Window {
             }
         }
     }
-    Component{
-        id:com_border
-        Rectangle{
-            color:"transparent"
-            border.width: window.resizeBorderWidth
-            border.color: window.resizeBorderColor
-        }
-    }
     FluLoader{
         id:loader_frameless_helper
     }
@@ -266,23 +251,28 @@ Window {
             id:infoBar
             root: window
         }
-        FluWindowLifecycle{
+        WindowLifecycle{
             id:lifecycle
         }
-        FluLoader{
-            id:loader_border
+        Rectangle{
             anchors.fill: parent
-            sourceComponent: {
-                if(window.useSystemAppBar){
-                    return undefined
+            color:"transparent"
+            border.width: window.resizeBorderWidth
+            border.color: window.resizeBorderColor
+            visible: {
+                if(window.useSystemAppBar || FluTools.isWindows10OrGreater()){
+                    return false
                 }
-                if(FluTools.isWindows10OrGreater()){
-                    return undefined
+                if(FluTools.isMacos()){
+                    if(window.visibility == Window.FullScreen){
+                        return false
+                    }
+                }else{
+                    if(window.visibility == Window.Maximized || window.visibility == Window.FullScreen){
+                        return false
+                    }
                 }
-                if(window.visibility === Window.Maximized || window.visibility === Window.FullScreen){
-                    return undefined
-                }
-                return com_border
+                return true
             }
         }
     }
@@ -309,6 +299,9 @@ Window {
     function showError(text,duration,moremsg){
         infoBar.showError(text,duration,moremsg)
     }
+    function registerForWindowResult(path){
+        return lifecycle.createRegister(window,path)
+    }
     function moveWindowToDesktopCenter(){
         screen = Qt.application.screens[FluTools.cursorScreenIndex()]
         var taskBarHeight = FluTools.getTaskBarHeight(window)
@@ -322,12 +315,9 @@ Window {
             window.minimumHeight = window.height
         }
     }
-    function registerForWindowResult(path){
-        return FluApp.createWindowRegister(window,path)
-    }
     function onResult(data){
-        if(_windowRegister){
-            _windowRegister.onResult(data)
+        if(_pageRegister){
+            _pageRegister.onResult(data)
         }
     }
     function layoutContainer(){

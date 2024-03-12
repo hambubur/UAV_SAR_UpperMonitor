@@ -15,8 +15,6 @@
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
 #include "src/helper/SettingsHelper.h"
-#include "src/helper/InitalizrHelper.h"
-#include "src/helper/TranslateHelper.h"
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB
 #if (QT_VERSION > QT_VERSION_CHECK(6, 2, 0))
@@ -52,7 +50,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setApplicationDisplayName("FluentUI Exmaple");
     QGuiApplication::setApplicationVersion(APPLICATION_VERSION);
     SettingsHelper::getInstance()->init(argv);
-    Log::setup(argv,"example");
+    Log::setup("example");
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 #endif
@@ -65,11 +63,8 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
-    engine.rootContext()->setContextProperty("InitalizrHelper",InitalizrHelper::getInstance());
-    engine.rootContext()->setContextProperty("TranslateHelper",TranslateHelper::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
 #endif

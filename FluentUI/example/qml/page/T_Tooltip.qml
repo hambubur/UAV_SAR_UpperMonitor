@@ -3,15 +3,16 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("Tooltip")
+    title:"Tooltip"
 
     FluText{
         Layout.topMargin: 20
-        text: qsTr("Hover over Tultip and it pops up")
+        text:"鼠标悬停不动，弹出Tooltip"
     }
 
     FluArea{
@@ -27,14 +28,14 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Text properties of FluIconButton support the Tooltip pop-up window by default")
+                text:"FluIconButton的text属性自带Tooltip效果"
             }
             FluIconButton{
                 iconSource:FluentIcons.ChromeCloseContrast
                 iconSize: 15
-                text: qsTr("Delete")
+                text:"删除"
                 onClicked:{
-                    showSuccess(qsTr("Click IconButton"))
+                    showSuccess("点击IconButton")
                 }
             }
         }
@@ -45,9 +46,9 @@ FluScrollablePage{
         code:'FluIconButton{
     iconSource:FluentIcons.ChromeCloseContrast
     iconSize: 15
-    text: qsTr("Delete")
+    text:"删除"
     onClicked:{
-        showSuccess(qsTr("Click IconButton"))
+        showSuccess("点击IconButton")
     }
 }
 '
@@ -66,13 +67,13 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Add a Tooltip pop-up to a Button")
+                text:"给一个Button添加Tooltip效果"
             }
             FluButton{
                 id:button_1
-                text: qsTr("Delete")
+                text:"删除"
                 onClicked:{
-                    showSuccess(qsTr("Click Button"))
+                    showSuccess("点击一个Button")
                 }
                 FluTooltip{
                     visible: button_1.hovered
@@ -86,15 +87,15 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluButton{
-    id: button_1
-    text: qsTr("Delete")
+    id:button_1
+    text:"删除"
     FluTooltip{
         visible: button_1.hovered
         text:button_1.text
         delay: 1000
     }
     onClicked:{
-        showSuccess(qsTr("Click Button"))
+        showSuccess("点击一个Button")
     }
 }'
     }

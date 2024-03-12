@@ -4,7 +4,6 @@ import FluentUI 1.0
 
 T.Slider {
     property bool tooltipEnabled: true
-    property string text: String(control.value)
     id: control
     to:100
     stepSize:1
@@ -69,6 +68,6 @@ T.Slider {
     FluTooltip{
         parent: control.handle
         visible: control.tooltipEnabled && (control.pressed || control.hovered)
-        text:control.text
+        text:String(control.value)
     }
 }

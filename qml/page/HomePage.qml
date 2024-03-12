@@ -5,9 +5,6 @@ import QtQuick.Controls
 import "qrc:///UAV_SAR_UpperMonitor/qml/global"
 import FluentUI
 
-// Item{
-
-// }
 
 FluScrollablePage{
 
@@ -18,9 +15,15 @@ FluScrollablePage{
         id:model_header
         ListElement{
             icon:"qrc:/UAV_SAR_UpperMonitor/res/img/ic_home_github.png"
-            title:"FluentUI GitHub"
-            desc:"The latest FluentUI controls and styles for your applications."
-            url:"https://github.com/zhuzichu520/FluentUI"
+            title:"卡片标题1"
+            desc:"卡片描述"
+            url:"https://github.com/hambubur/UAV_SAR_UpperMonitor"
+        }
+        ListElement{
+            icon:"qrc:/UAV_SAR_UpperMonitor/res/img/ic_home_github.png"
+            title:"卡片标题2"
+            desc:"卡片描述"
+            url:"https://github.com/hambubur/UAV_SAR_UpperMonitor"
         }
     }
 
@@ -43,7 +46,7 @@ FluScrollablePage{
             }
         }
         FluText{
-            text:"FluentUI Gallery"
+            text: qsTr("UAV SAR UpperMonitor")
             font: FluTextStyle.TitleLarge
             anchors{
                 top: parent.top

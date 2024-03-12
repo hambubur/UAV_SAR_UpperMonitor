@@ -3,9 +3,6 @@
 
 #include <QQmlExtensionPlugin>
 
-/**
- * @brief The FluentUIPlugin class
- */
 class FluentUIPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT

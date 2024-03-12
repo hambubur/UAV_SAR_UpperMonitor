@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("Carousel")
+    title:"Carousel"
 
     ListModel{
         id:data_model
@@ -34,7 +34,7 @@ FluScrollablePage{
                 left:parent.left
             }
             FluText{
-                text: qsTr("Carousel map, support infinite carousel, infinite swipe, and components implemented with ListView")
+                text:"轮播图，支持无限轮播，无限滑动，用ListView实现的组件"
             }
             Item{
                 width: 400

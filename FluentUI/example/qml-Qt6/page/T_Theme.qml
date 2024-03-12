@@ -3,44 +3,36 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    property var colorData: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
-    id: root
-    title: qsTr("Theme")
+    title:"Theme"
 
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
-        Layout.preferredHeight: 340
+        height: 270
         paddings: 10
-
         ColumnLayout{
             spacing:0
             anchors{
                 left: parent.left
             }
-            FluText{
-                text: qsTr("Theme colors")
-                Layout.topMargin: 10
-            }
             RowLayout{
-                Layout.topMargin: 5
+                Layout.topMargin: 10
                 Repeater{
-                    model: root.colorData
-                    delegate:  Rectangle{
+                    model: [FluColors.Yellow,FluColors.Orange,FluColors.Red,FluColors.Magenta,FluColors.Purple,FluColors.Blue,FluColors.Teal,FluColors.Green]
+                    delegate:  FluRectangle{
                         width: 42
                         height: 42
-                        radius: 4
+                        radius: [4,4,4,4]
                         color: mouse_item.containsMouse ? Qt.lighter(modelData.normal,1.1) : modelData.normal
-                        border.color: modelData.darkest
                         FluIcon {
                             anchors.centerIn: parent
                             iconSource: FluentIcons.AcceptMedium
                             iconSize: 15
-                            visible: modelData === FluTheme.accentColor
+                            visible: modelData === FluTheme.themeColor
                             color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                         }
                         MouseArea{
@@ -48,43 +40,14 @@ FluScrollablePage{
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: {
-                                FluTheme.accentColor = modelData
+                                FluTheme.themeColor = modelData
                             }
                         }
-                    }
-                }
-            }
-            Row{
-                Layout.topMargin: 10
-                spacing: 10
-                FluText{
-                    text: qsTr("Customize the Theme Color")
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                FluColorPicker{
-                    id:color_picker
-                    current: FluTheme.accentColor.normal
-                    onAccepted: {
-                       FluTheme.accentColor = FluColors.createAccentColor(current)
-                    }
-                    FluIcon {
-                        anchors.centerIn: parent
-                        iconSource: FluentIcons.AcceptMedium
-                        iconSize: 15
-                        visible: {
-                            for(var i =0 ;i< root.colorData.length; i++){
-                                if(root.colorData[i] === FluTheme.accentColor){
-                                    return false
-                                }
-                            }
-                            return true
-                        }
-                        color: FluTheme.dark ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
                     }
                 }
             }
             FluText{
-                text: qsTr("Dark Mode")
+                text:"夜间模式"
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
@@ -99,7 +62,7 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text: qsTr("Native Text")
+                text:"native文本渲染"
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
@@ -110,7 +73,7 @@ FluScrollablePage{
                 }
             }
             FluText{
-                text: qsTr("Open Animation")
+                text:"开启动画效果"
                 Layout.topMargin: 20
             }
             FluToggleSwitch{
@@ -125,7 +88,7 @@ FluScrollablePage{
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
-        code:'FluTheme.accentColor = FluColors.Orange
+        code:'FluTheme.themeColor = FluColors.Orange
 
 FluTheme.dark = true
 

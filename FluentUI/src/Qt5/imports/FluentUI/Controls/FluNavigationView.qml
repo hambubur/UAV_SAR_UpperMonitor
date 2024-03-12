@@ -21,9 +21,6 @@ Item {
     property int cellHeight: 38
     property int cellWidth: 300
     property bool hideNavAppBar: false
-    property alias buttonMenu: btn_menu
-    property alias buttonBack: btn_back
-    property alias imageLogo: image_logo
     signal logoClicked
     id:control
     Item{
@@ -204,7 +201,7 @@ Item {
                 }
                 FluTooltip {
                     text: model.title
-                    visible: item_control.hovered && model.title && d.isCompactAndNotPanel
+                    visible: item_control.hovered && model.title && d.isCompact
                     delay: 800
                 }
                 MouseArea{
@@ -491,7 +488,7 @@ Item {
                 }
                 FluTooltip {
                     text: model.title
-                    visible: item_control.hovered && model.title && d.isCompactAndNotPanel
+                    visible: item_control.hovered && model.title && d.isCompact
                     delay: 800
                 }
                 onClicked:{
@@ -758,7 +755,7 @@ Item {
                 }
             }
             FluIconButton{
-                id:btn_menu
+                id:btn_nav
                 iconSource: FluentIcons.GlobalNavButton
                 iconSize: 15
                 Layout.preferredWidth: d.isMinimal ? 30 : 0
@@ -790,7 +787,7 @@ Item {
                 Layout.preferredWidth: 20
                 source: control.logo
                 Layout.leftMargin: {
-                    if(btn_menu.visible){
+                    if(btn_nav.visible){
                         return 12
                     }
                     return 5
@@ -1339,5 +1336,14 @@ Item {
                 return
             }
         }
+    }
+    function backButton(){
+        return btn_back
+    }
+    function navButton(){
+        return btn_nav
+    }
+    function logoButton(){
+        return image_logo
     }
 }

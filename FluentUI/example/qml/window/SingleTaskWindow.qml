@@ -2,12 +2,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluWindow {
 
-    id: window
-    title: qsTr("SingleTask")
+    id:window
+    title:"SingleTask"
     width: 500
     height: 600
     fixSize: true
@@ -15,7 +16,7 @@ FluWindow {
 
     FluText{
         anchors.centerIn: parent
-        text: qsTr("I'm a SingleTask mode window, and if I exist, I activate the window")
+        text:"我是一个SingleTask模式的窗口，如果我存在，我就激活窗口"
     }
 
 }

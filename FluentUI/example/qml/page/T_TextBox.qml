@@ -3,15 +3,20 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
+import "qrc:///example/qml/viewmodel"
 import "../component"
 import "../viewmodel"
 
 FluScrollablePage{
-
-    title: qsTr("TextBox")
+    title:"TextBox"
 
     TextBoxViewModel{
         id:viewModel
+    }
+
+    Component.onDestruction: {
+        console.debug("T_TextBox页面销毁了")
     }
 
     FluArea{
@@ -21,10 +26,10 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluTextBox{
-            placeholderText: qsTr("Single-line Input Box")
-            disabled: text_box_switch.checked
+            placeholderText: "单行输入框"
+            disabled:text_box_switch.checked
             cleanEnabled: true
-            text: viewModel.text1
+            text:viewModel.text1
             onTextChanged: {
                 viewModel.text1 = text
             }
@@ -35,19 +40,19 @@ FluScrollablePage{
         }
 
         FluToggleSwitch{
-            id: text_box_switch
+            id:text_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluTextBox{
-    placeholderText: qsTr("Single-line Input Box")
+    placeholderText:"单行输入框"
 }'
     }
 
@@ -58,7 +63,7 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluPasswordBox{
-            placeholderText: qsTr("Please enter your password")
+            placeholderText: "请输入密码"
             disabled:password_box_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -71,14 +76,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluPasswordBox{
-    placeholderText: qsTr("Please enter your password")
+    placeholderText:"请输入密码"
 }'
     }
 
@@ -90,13 +95,13 @@ FluScrollablePage{
         Layout.topMargin: 20
 
         FluMultilineTextBox{
-            id: multiine_textbox
-            placeholderText: qsTr("Multi-line Input Box")
+            id:multiine_textbox
+            placeholderText: "多行输入框"
             text:viewModel.text2
             onTextChanged: {
                 viewModel.text2 = text
             }
-            disabled: text_box_multi_switch.checked
+            disabled:text_box_multi_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -109,14 +114,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluMultilineTextBox{
-    placeholderText: qsTr("Multi-line Input Box")
+    placeholderText:"多行输入框"
 }'
     }
 
@@ -126,9 +131,9 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         FluAutoSuggestBox{
-            placeholderText: qsTr("AutoSuggestBox")
-            items: generateRandomNames(100)
-            disabled: text_box_suggest_switch.checked
+            placeholderText: "AutoSuggestBox"
+            items:generateRandomNames(100)
+            disabled:text_box_suggest_switch.checked
             anchors{
                 verticalCenter: parent.verticalCenter
                 left: parent.left
@@ -140,14 +145,14 @@ FluScrollablePage{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluAutoSuggestBox{
-    placeholderText: qsTr("AutoSuggestBox")
+    placeholderText:"AutoSuggestBox"
 }'
     }
 
@@ -164,12 +169,12 @@ FluScrollablePage{
             }
         }
         FluToggleSwitch{
-            id: spin_box_switch
+            id:spin_box_switch
             anchors{
                 verticalCenter: parent.verticalCenter
                 right: parent.right
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{

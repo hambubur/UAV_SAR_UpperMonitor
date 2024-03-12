@@ -71,16 +71,16 @@ FluObject{
             }
         }
 
-        //文件
+        //通信
         FluPaneItem{
             id:item_cfg_file
             count: 0
             infoBadge:FluBadge{
                 count: item_cfg_file.count
             }
-            title:"文件参数配置"
+            title:"通信参数配置"
             menuDelegate: paneItemMenu
-            url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/file_parameters.qml"
+            url:"qrc:/UAV_SAR_UpperMonitor/qml/page/configuration/communication_parameters.qml"
             onTap:{
                 item_cfg_file.count = 0
                 navigationView.push(url)

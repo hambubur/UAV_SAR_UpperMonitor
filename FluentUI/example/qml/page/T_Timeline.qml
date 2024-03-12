@@ -3,11 +3,12 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("Timeline")
+    title:"Timeline"
 
     Component{
         id:com_dot
@@ -108,18 +109,18 @@ FluScrollablePage{
         spacing: 20
         Layout.topMargin: 20
         FluTextBox{
-            id: text_box
-            text: "Technical testing 2015-09-01"
+            id:text_box
+            text:"Technical testing 2015-09-01"
             Layout.preferredWidth: 240
         }
         FluFilledButton{
-            text: qsTr("Append")
+            text:"Append"
             onClicked: {
                 list_model.append({text:text_box.text})
             }
         }
         FluFilledButton{
-            text: qsTr("clear")
+            text:"clear"
             onClicked: {
                 list_model.clear()
             }
@@ -132,25 +133,25 @@ FluScrollablePage{
             text:"mode:"
         }
         FluDropDownButton{
-            id: btn_mode
+            id:btn_mode
             Layout.preferredWidth: 100
-            text: "Alternate"
+            text:"Alternate"
             FluMenuItem{
-                text: "Left"
+                text:"Left"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Left
                 }
             }
             FluMenuItem{
-                text: "Right"
+                text:"Right"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Right
                 }
             }
             FluMenuItem{
-                text: "Alternate"
+                text:"Alternate"
                 onClicked: {
                     btn_mode.text = text
                     time_line.mode = FluTimelineType.Alternate
@@ -160,12 +161,12 @@ FluScrollablePage{
     }
 
     FluTimeline{
-        id: time_line
+        id:time_line
         Layout.fillWidth: true
         Layout.topMargin: 20
         Layout.bottomMargin: 20
         mode: FluTimelineType.Alternate
-        model: list_model
+        model:list_model
     }
 
 }

@@ -3,11 +3,11 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("Text")
+    title:"Text"
 
     FluArea{
         Layout.fillWidth: true
@@ -16,7 +16,7 @@ FluScrollablePage{
         paddings: 10
 
         FluCopyableText{
-            text: qsTr("This is a text that can be copied")
+            text: "这是一个可以支持复制的Text"
             anchors.verticalCenter: parent.verticalCenter
         }
 
@@ -25,7 +25,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluCopyableText{
-    text: qsTr("This is a text that can be copied")
+    text:"这是一个可以支持复制的Text"
 }'
     }
 

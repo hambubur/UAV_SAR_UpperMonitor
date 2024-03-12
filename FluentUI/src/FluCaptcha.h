@@ -6,9 +6,6 @@
 #include <QPainter>
 #include "stdafx.h"
 
-/**
- * @brief The FluCaptcha class
- */
 class FluCaptcha : public QQuickPaintedItem
 {
     Q_OBJECT

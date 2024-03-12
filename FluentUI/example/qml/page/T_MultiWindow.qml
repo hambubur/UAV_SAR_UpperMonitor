@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
@@ -10,7 +11,7 @@ FluScrollablePage{
     property string password: ""
     property var loginPageRegister: registerForWindowResult("/login")
 
-    title: qsTr("MultiWindow")
+    title:"MultiWindow"
 
     Connections{
         target: loginPageRegister
@@ -32,10 +33,10 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("<font color='red'>Standard</font> mode window，a new window is created every time")
+                text:"<font color='red'>Standard</font>模式窗口，每次都会创建新窗口"
             }
             FluButton{
-                text: qsTr("Create Window")
+                text:"点击创建窗口"
                 onClicked: {
                     FluApp.navigate("/standardWindow")
                 }
@@ -55,11 +56,11 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("<font color='red'>SingleTask</font> mode window，If a window exists, this activates the window")
+                text:"<font color='red'>SingleTask</font>模式窗口，如果窗口存在，这激活该窗口"
                 textFormat: Text.RichText
             }
             FluButton{
-                text: qsTr("Create Window")
+                text:"点击创建窗口"
                 onClicked: {
                     FluApp.navigate("/singleTaskWindow")
                 }
@@ -79,10 +80,10 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("<font color='red'>SingleInstance</font> mode window，If the window exists, destroy the window and create a new window")
+                text:"<font color='red'>SingleInstance</font>模式窗口，如果窗口存在，则销毁窗口，然后新建窗口"
             }
             FluButton{
-                text: qsTr("Create Window")
+                text:"点击创建窗口"
                 onClicked: {
                     FluApp.navigate("/singleInstanceWindow")
                 }
@@ -113,10 +114,10 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Create the window without carrying any parameters")
+                text:"页面跳转，不携带任何参数"
             }
             FluButton{
-                text: qsTr("Create Window")
+                text:"点击跳转"
                 onClicked: {
                     FluApp.navigate("/about")
                 }
@@ -127,7 +128,7 @@ FluScrollablePage{
         Layout.fillWidth: true
         Layout.topMargin: -1
         code:'FluButton{
-    text: qsTr("Create Window")
+    text:"点击跳转"
     onClicked: {
         FluApp.navigate("/about")
     }
@@ -148,16 +149,16 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Create a window with the parameter username: zhuzichu")
+                text:"页面跳转，并携带参数用户名：zhuzichu"
             }
             FluButton{
-                text: qsTr("Create Window")
+                text:"点击跳转到登录"
                 onClicked: {
                     loginPageRegister.launch({username:"zhuzichu"})
                 }
             }
             FluText{
-                text:qsTr("Login Window Returned Password - >")+password
+                text:"登录窗口返回过来的密码->"+password
             }
         }
     }
@@ -175,7 +176,7 @@ Connections{
 }
 
 FluButton{
-    text: qsTr("Create Window")
+    text:"点击跳转"
     onClicked: {
         loginPageRegister.launch({username:"zhuzichu"})
     }

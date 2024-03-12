@@ -6,9 +6,6 @@
 #include "stdafx.h"
 #include "singleton.h"
 
-/**
- * @brief The FluEvent class
- */
 class FluEvent : public QObject{
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,name);
@@ -18,9 +15,6 @@ public:
     Q_SIGNAL void triggered(QMap<QString, QVariant> data);
 };
 
-/**
- * @brief The FluEventBus class
- */
 class FluEventBus : public QObject
 {
     Q_OBJECT

@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("Menu")
+    title:"Menu"
 
     FluMenu {
         id:menu
@@ -27,20 +27,20 @@ FluScrollablePage{
             iconSource: FluentIcons.Zoom
             iconSpacing: 3
             onTriggered: {
-                showError(qsTr("Search"))
+                showError("Search")
             }
         }
         Action {
             text: qsTr("Disable")
             enabled:false
             onTriggered: {
-                showError(qsTr("Disable"))
+                showError("Disable")
             }
         }
         FluMenuSeparator { }
         Action { text: qsTr("Check");checkable: true;checked: true}
         FluMenu{
-            title: qsTr("Save As...")
+            title: "Save As..."
             Action { text: qsTr("Doc") }
             Action { text: qsTr("PDF") }
         }
@@ -53,7 +53,7 @@ FluScrollablePage{
         paddings: 10
         Layout.topMargin: 20
         Column{
-            id: layout_column
+            id:layout_column
             spacing: 15
             anchors{
                 verticalCenter: parent.verticalCenter
@@ -61,11 +61,11 @@ FluScrollablePage{
             }
 
             FluText{
-                text: qsTr("Menu")
+                text:"Menu"
             }
 
             FluButton{
-                text: qsTr("Show Menu Popup")
+                text:"Show Menu Popup"
                 Layout.topMargin: 20
                 onClicked:{
                     menu.popup()
@@ -112,7 +112,7 @@ menu.popup()
             }
 
             FluText{
-                text: qsTr("MenuBar")
+                text:"MenuBar"
             }
 
             FluMenuBar {
@@ -129,7 +129,7 @@ menu.popup()
                         enabled:false
                     }
                     FluMenu{
-                        title: qsTr("Save As...")
+                        title: "Save As..."
                         Action { text: qsTr("Doc") }
                         Action { text: qsTr("PDF") }
                     }
@@ -168,4 +168,8 @@ menu.popup()
 menu.popup()
 '
     }
+
+
+
+
 }

@@ -8,9 +8,7 @@ Popup {
     id: popup
     padding: 0
     modal:true
-    parent: Overlay.overlay
-    x: Math.round((parent.width - width) / 2)
-    y: Math.round((parent.height - height) / 2)
+    anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape
     enter: Transition {
         NumberAnimation {
@@ -20,7 +18,6 @@ Popup {
             to:1
         }
     }
-    height:Math.min(implicitHeight,parent.height)
     exit:Transition {
         NumberAnimation {
             property: "opacity"

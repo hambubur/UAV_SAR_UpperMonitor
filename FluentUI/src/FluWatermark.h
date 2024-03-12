@@ -6,9 +6,6 @@
 #include <QPainter>
 #include "stdafx.h"
 
-/**
- * @brief The FluWatermark class
- */
 class FluWatermark : public QQuickPaintedItem
 {
     Q_OBJECT
@@ -22,6 +19,7 @@ class FluWatermark : public QQuickPaintedItem
 public:
     explicit FluWatermark(QQuickItem *parent = nullptr);
     void paint(QPainter* painter) override;
+
 };
 
 #endif // FLUWATERMARK_H

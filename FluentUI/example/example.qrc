@@ -154,9 +154,10 @@
         <file>qml/page/T_RatingControl.qml</file>
         <file>qml/page/T_Rectangle.qml</file>
         <file>qml/page/T_RemoteLoader.qml</file>
+        <file>qml/page/T_Screenshot.qml</file>
         <file>qml/page/T_Settings.qml</file>
         <file>qml/page/T_Slider.qml</file>
-        <file>qml/page/T_StatusLayout.qml</file>
+        <file>qml/page/T_StatusView.qml</file>
         <file>qml/page/T_TableView.qml</file>
         <file>qml/page/T_TabView.qml</file>
         <file>qml/page/T_Text.qml</file>
@@ -180,11 +181,12 @@
         <file>res/image/bg_scenic.png</file>
         <file>res/image/image_1.jpg</file>
         <file>qml/window/PageWindow.qml</file>
-        <file>qml/page/T_StaggeredLayout.qml</file>
+        <file>qml/page/T_StaggeredView.qml</file>
         <file>qml/viewmodel/SettingsViewModel.qml</file>
         <file>qml/viewmodel/TextBoxViewModel.qml</file>
         <file>qml/page/T_Clip.qml</file>
         <file>qml/page/T_3D.qml</file>
+        <file>qml/global/Lang.qml</file>
         <file>qml/page/T_Network.qml</file>
         <file>qml/page/T_ShortcutPicker.qml</file>
         <file>qml/chart/T_BarChart.qml</file>
@@ -196,7 +198,5 @@
         <file>qml/chart/T_PolarAreaChart.qml</file>
         <file>res/image/ic_crash.png</file>
         <file>qml/window/CrashWindow.qml</file>
-        <file>qml/page/T_SplitLayout.qml</file>
-        <file>qml/window/FluentInitalizrWindow.qml</file>
     </qresource>
 </RCC>

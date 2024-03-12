@@ -10,14 +10,11 @@ Popup{
     property Component nextButton: com_next_button
     property Component prevButton: com_prev_button
     property int index : 0
-    property string finishText: "结束导览"
-    property string nextText: "下一步"
-    property string previousText: "上一步"
     id:control
     padding: 0
-    parent: Overlay.overlay
-    width: parent.width
-    height: parent.height
+    anchors.centerIn: Overlay.overlay
+    width: d.windowWidth
+    height: d.windowHeight
     background: Item{}
     contentItem: Item{}
     onVisibleChanged: {
@@ -29,9 +26,9 @@ Popup{
         canvas.requestPaint()
     }
     Component{
-        id: com_next_button
+        id:com_next_button
         FluFilledButton{
-            text: isEnd ? control.finishText : control.nextText
+            text: isEnd ? "结束导览" :"下一步"
             onClicked: {
                 if(isEnd){
                     control.close()
@@ -42,9 +39,9 @@ Popup{
         }
     }
     Component{
-        id: com_prev_button
+        id:com_prev_button
         FluButton{
-            text: control.previousText
+            text: "上一步"
             onClicked: {
                 control.index = control.index - 1
             }
@@ -53,9 +50,19 @@ Popup{
     Item{
         id:d
         property var window: Window.window
+        property int windowWidth: {
+            if(d.window)
+                return d.window.width
+            return 0
+        }
+        property int windowHeight: {
+            if(d.window)
+                return d.window.height
+            return 0
+        }
         property point pos: Qt.point(0,0)
-        property var step: steps[index]
-        property var target: step.target()
+        property var step : steps[index]
+        property var target : step.target()
     }
     Connections{
         target: d.window
@@ -69,14 +76,14 @@ Popup{
         }
     }
     Timer{
-        id: timer_delay
+        id:timer_delay
         interval: 200
         onTriggered: {
             canvas.requestPaint()
         }
     }
     Canvas{
-        id: canvas
+        id:canvas
         anchors.fill: parent
         onPaint: {
             d.pos = d.target.mapToGlobal(0,0)
@@ -108,7 +115,7 @@ Popup{
         }
     }
     FluArea{
-        id: layout_panne
+        id:layout_panne
         radius: 5
         width: 500
         height: 88 + text_desc.height
@@ -118,10 +125,10 @@ Popup{
                 return 1
             return 0
         }
-        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),control.width-width)
-        y: {
+        x: Math.min(Math.max(0,d.pos.x+d.target.width/2-width/2),d.windowWidth-width)
+        y:{
             var ty=d.pos.y+d.target.height+control.targetMargins + 15
-            if((ty+height)>control.height)
+            if((ty+height)>d.windowHeight)
                 return d.pos.y-height-control.targetMargins - 15
             return ty
         }
@@ -143,7 +150,7 @@ Popup{
             }
         }
         FluText{
-            id: text_desc
+            id:text_desc
             font: FluTextStyle.Body
             wrapMode: Text.WrapAnywhere
             maximumLineCount: 4
@@ -159,22 +166,22 @@ Popup{
             }
         }
         FluLoader{
-            id: loader_next
+            id:loader_next
             property bool isEnd: control.index === steps.length-1
             sourceComponent: com_next_button
             anchors{
-                top: text_desc.bottom
+                top:text_desc.bottom
                 topMargin: 10
                 right: parent.right
                 rightMargin: 15
             }
         }
         FluLoader{
-            id: loader_prev
+            id:loader_prev
             visible: control.index !== 0
             sourceComponent: com_prev_button
             anchors{
-                right: loader_next.left
+                right:loader_next.left
                 top: loader_next.top
                 rightMargin: 14
             }
@@ -190,7 +197,7 @@ Popup{
             verticalPadding: 0
             horizontalPadding: 0
             iconSize: 12
-            iconSource: FluentIcons.ChromeClose
+            iconSource : FluentIcons.ChromeClose
             onClicked: {
                 control.close()
             }

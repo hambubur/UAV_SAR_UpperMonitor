@@ -3,18 +3,17 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
 import Qt.labs.platform 1.0
-import "../component"
+import "qrc:///example/qml/component"
 
 FluWindow {
 
     id:window
-    title: qsTr("Friendly Reminder")
+    title:"友情提示"
     width: 300
     height: 400
     fixSize: true
     showMinimize: false
     showStayTop: false
-    stayTop:true
 
     property string crashFilePath
 
@@ -37,15 +36,11 @@ FluWindow {
     FluText{
         id:text_info
         anchors{
+            horizontalCenter: parent.horizontalCenter
             top: parent.top
             topMargin: 240
-            left: parent.left
-            right: parent.right
-            leftMargin: 10
-            rightMargin: 10
         }
-        wrapMode: Text.WrapAnywhere
-        text: qsTr("We apologize for the inconvenience caused by an unexpected error")
+        text:"发生意外错误\n给您带来的不便，我们深表歉意"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
@@ -57,7 +52,7 @@ FluWindow {
             bottomMargin: 20
         }
         FluButton{
-            text: qsTr("Report Logs")
+            text:"日志上报"
             onClicked: {
                 FluTools.showFileInFolder(crashFilePath)
             }
@@ -67,7 +62,7 @@ FluWindow {
             height: 1
         }
         FluFilledButton{
-            text: qsTr("Restart Program")
+            text:"重启程序"
             onClicked: {
                 FluApp.exit(931)
             }

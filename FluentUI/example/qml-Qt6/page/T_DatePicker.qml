@@ -3,11 +3,11 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("TimePicker")
+    title:"TimePicker"
 
     FluArea{
         Layout.fillWidth: true
@@ -20,15 +20,10 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("showYear=true")
+                text:"showYear=true"
             }
             FluDatePicker{
                 current: new Date()
-                yearText: qsTr("Year")
-                monthText: qsTr("Month")
-                dayText: qsTr("Day")
-                cancelText: qsTr("Cancel")
-                okText: qsTr("OK")
                 onAccepted: {
                     showSuccess(current.toLocaleDateString())
                 }
@@ -54,15 +49,10 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("showYear=false")
+                text:"showYear=false"
             }
             FluDatePicker{
-                showYear: false
-                yearText: qsTr("Year")
-                monthText: qsTr("Month")
-                dayText: qsTr("Day")
-                cancelText: qsTr("Cancel")
-                okText: qsTr("OK")
+                showYear:false
                 onAccepted: {
                     showSuccess(current.toLocaleDateString())
                 }

@@ -17,7 +17,7 @@ Item {
     height: d.isVertical ? parent.height : spacing*2+size
 
     FluRectangle{
-        color: FluTheme.dividerColor
+        color: FluTheme.dark ? Qt.rgba(80/255,80/255,80/255,1) : Qt.rgba(210/255,210/255,210/255,1)
         width: d.isVertical ? size : parent.width
         height: d.isVertical ? parent.height : size
         anchors.centerIn: parent

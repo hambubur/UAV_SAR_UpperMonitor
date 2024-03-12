@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Controls
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("ComboBox")
+    title:"ComboBox"
 
     FluArea{
         Layout.fillWidth: true
@@ -32,30 +32,6 @@ FluScrollablePage{
         }
     }
 
-    FluArea {
-        Layout.fillWidth: true
-        height: 80
-        paddings: 5
-        Layout.topMargin: 20
-        Column{
-            spacing: 5
-            anchors.verticalCenter: parent.verticalCenter
-            FluText{
-                text: "disabled=true"
-                x:10
-            }
-            FluComboBox {
-                disabled: true
-                model: ListModel {
-                    id: model_2
-                    ListElement { text: "Banana" }
-                    ListElement { text: "Apple" }
-                    ListElement { text: "Coconut" }
-                }
-            }
-        }
-    }
-
     FluArea{
         Layout.fillWidth: true
         height: 80
@@ -71,14 +47,14 @@ FluScrollablePage{
             FluComboBox {
                 editable: true
                 model: ListModel {
-                    id: model_3
+                    id: model_2
                     ListElement { text: "Banana" }
                     ListElement { text: "Apple" }
                     ListElement { text: "Coconut" }
                 }
                 onAccepted: {
                     if (find(editText) === -1)
-                        model_3.append({text: editText})
+                        model_2.append({text: editText})
                 }
             }
         }

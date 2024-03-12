@@ -3,11 +3,12 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("Image")
+    title:"Image"
 
     FluArea{
         Layout.fillWidth: true
@@ -24,10 +25,9 @@ FluScrollablePage{
                 width: 384
                 height: 240
                 source: "https://gitee.com/zhu-zichu/zhu-zichu/raw/74f075efe2f8d3c3bb7ba3c2259e403450e4050b/image/banner_4.jpg"
-                errorButtonText: qsTr("Reload")
                 onStatusChanged:{
                     if(status === Image.Error){
-                        showError(qsTr("The image failed to load, please reload"))
+                        showError("图片加载失败，请重新加载")
                     }
                 }
                 clickErrorListener: function(){

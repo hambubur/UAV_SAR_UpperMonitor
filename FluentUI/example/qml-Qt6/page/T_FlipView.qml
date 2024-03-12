@@ -3,11 +3,11 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import FluentUI
-import "../component"
+import "qrc:///example/qml/component"
 
 FluScrollablePage{
 
-    title: qsTr("FlipView")
+    title:"FlipView"
 
     FluArea{
         Layout.fillWidth: true
@@ -17,7 +17,7 @@ FluScrollablePage{
         ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: qsTr("Horizontal FlipView")
+                text:"水平方向的FlipView"
             }
             FluFlipView{
                 Image{
@@ -69,7 +69,7 @@ FluScrollablePage{
         ColumnLayout{
             anchors.verticalCenter: parent.verticalCenter
             FluText{
-                text: qsTr("Vertical FlipView")
+                text:"垂直方向的FlipView"
             }
             FluFlipView{
                 vertical:true

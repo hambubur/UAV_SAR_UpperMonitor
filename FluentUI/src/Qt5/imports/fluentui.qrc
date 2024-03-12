@@ -16,6 +16,7 @@
         <file>FluentUI/Controls/FluChart.qml</file>
         <file>FluentUI/Controls/FluCheckBox.qml</file>
         <file>FluentUI/Controls/FluColorPicker.qml</file>
+        <file>FluentUI/Controls/FluColorView.qml</file>
         <file>FluentUI/Controls/FluComboBox.qml</file>
         <file>FluentUI/Controls/FluContentDialog.qml</file>
         <file>FluentUI/Controls/FluContentPage.qml</file>
@@ -61,14 +62,15 @@
         <file>FluentUI/Controls/FluRangeSlider.qml</file>
         <file>FluentUI/Controls/FluRatingControl.qml</file>
         <file>FluentUI/Controls/FluRemoteLoader.qml</file>
+        <file>FluentUI/Controls/FluScreenshot.qml</file>
         <file>FluentUI/Controls/FluScrollablePage.qml</file>
         <file>FluentUI/Controls/FluScrollBar.qml</file>
         <file>FluentUI/Controls/FluScrollIndicator.qml</file>
         <file>FluentUI/Controls/FluShadow.qml</file>
         <file>FluentUI/Controls/FluSlider.qml</file>
         <file>FluentUI/Controls/FluSpinBox.qml</file>
-        <file>FluentUI/Controls/FluStaggeredLayout.qml</file>
-        <file>FluentUI/Controls/FluStatusLayout.qml</file>
+        <file>FluentUI/Controls/FluStaggeredView.qml</file>
+        <file>FluentUI/Controls/FluStatusView.qml</file>
         <file>FluentUI/Controls/FluTableView.qml</file>
         <file>FluentUI/Controls/FluTabView.qml</file>
         <file>FluentUI/Controls/FluText.qml</file>
@@ -84,6 +86,12 @@
         <file>FluentUI/Controls/FluTour.qml</file>
         <file>FluentUI/Controls/FluTreeView.qml</file>
         <file>FluentUI/Controls/FluWindow.qml</file>
+        <file>FluentUI/Controls/ColorPicker/ColorPicker.qml</file>
+        <file>FluentUI/Controls/ColorPicker/Content/Checkerboard.qml</file>
+        <file>FluentUI/Controls/ColorPicker/Content/ColorSlider.qml</file>
+        <file>FluentUI/Controls/ColorPicker/Content/NumberBox.qml</file>
+        <file>FluentUI/Controls/ColorPicker/Content/PanelBorder.qml</file>
+        <file>FluentUI/Controls/ColorPicker/Content/SBPicker.qml</file>
         <file>FluentUI/Controls/FluLoadingButton.qml</file>
         <file>FluentUI/Controls/FluClip.qml</file>
         <file>FluentUI/Controls/FluLoader.qml</file>
@@ -98,6 +106,5 @@
         <file>FluentUI/Image/btn_min_normal.png</file>
         <file>FluentUI/Image/btn_min_pushed.png</file>
         <file>FluentUI/Controls/FluImageButton.qml</file>
-        <file>FluentUI/Controls/FluSplitLayout.qml</file>
     </qresource>
 </RCC>

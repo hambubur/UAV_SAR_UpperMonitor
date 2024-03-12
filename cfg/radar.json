@@ -702,172 +702,180 @@
   ],
   "Chirp": [
     [
-      {
-        "title": "Chirp起始索引",
-        "value": 0,
-        "unit": "",
-        "param": "chirpStartIdx",
-        "desc": "Chirp起始索引",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "Chirp结束索引",
-        "value": 63,
-        "unit": "",
-        "param": "chirpEndIdx",
-        "desc": "Chirp结束索引",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "配置文件ID",
-        "value": 0,
-        "unit": "",
-        "param": "profileIdCPCFG",
-        "desc": "雷达配置文件ID",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "起始频率",
-        "value": 0,
-        "unit": "GHz",
-        "param": "startFreqConst",
-        "desc": "起始频率",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "频率斜率",
-        "value": 0,
-        "unit": "MHz/us",
-        "param": "freqSlopeVar",
-        "desc": "频率斜率",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "空闲时间",
-        "value": 0,
-        "unit": "us",
-        "param": "idleTimeVar",
-        "desc": "空闲时间",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "ADC开始时间",
-        "value": 0,
-        "unit": "us",
-        "param": "adcStartTimeVar",
-        "desc": "ADC开始时间",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": [
-          "TX0使能",
-          "TX1使能",
-          "TX2使能"
-        ],
-        "value": [
-          true,
-          true,
-          false
-        ],
-        "unit": "",
-        "param": "txEnable",
-        "desc": "TX使能",
-        "visible": true,
-        "locked": false
-      }
+      [
+        {
+          "title": "Chirp起始索引",
+          "value": 0,
+          "unit": "",
+          "param": "chirpStartIdx",
+          "desc": "Chirp起始索引",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "Chirp结束索引",
+          "value": 63,
+          "unit": "",
+          "param": "chirpEndIdx",
+          "desc": "Chirp结束索引",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "配置文件ID",
+          "value": 0,
+          "unit": "",
+          "param": "profileIdCPCFG",
+          "desc": "雷达配置文件ID",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 0,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 0,
+          "unit": "MHz/us",
+          "param": "freqSlopeVar",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 0,
+          "unit": "us",
+          "param": "idleTimeVar",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "adcStartTimeVar",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0使能",
+            "TX1使能",
+            "TX2使能"
+          ],
+          "value": [
+            true,
+            true,
+            false
+          ],
+          "unit": "",
+          "param": "txEnable",
+          "desc": "TX使能",
+          "visible": true,
+          "locked": false
+        }
+      ]
     ],
     [
-      {
-        "title": "Chirp起始索引",
-        "value": 64,
-        "unit": "",
-        "param": "chirpStartIdx",
-        "desc": "Chirp起始索引",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "Chirp结束索引",
-        "value": 127,
-        "unit": "",
-        "param": "chirpEndIdx",
-        "desc": "Chirp结束索引",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "配置文件ID",
-        "value": 0,
-        "unit": "",
-        "param": "profileIdCPCFG",
-        "desc": "雷达配置文件ID",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "起始频率",
-        "value": 0,
-        "unit": "GHz",
-        "param": "startFreqConst",
-        "desc": "起始频率",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "频率斜率",
-        "value": 0,
-        "unit": "MHz/us",
-        "param": "freqSlopeVar",
-        "desc": "频率斜率",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "空闲时间",
-        "value": 0,
-        "unit": "us",
-        "param": "idleTimeVar",
-        "desc": "空闲时间",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": "ADC开始时间",
-        "value": 0,
-        "unit": "us",
-        "param": "adcStartTimeVar",
-        "desc": "ADC开始时间",
-        "visible": true,
-        "locked": false
-      },
-      {
-        "title": [
-          "TX0使能",
-          "TX1使能",
-          "TX2使能"
-        ],
-        "value": [
-          true,
-          true,
-          false
-        ],
-        "unit": "",
-        "param": "txEnable",
-        "desc": "TX使能",
-        "visible": true,
-        "locked": false
-      }
+      [
+        {
+          "title": "Chirp起始索引",
+          "value": 64,
+          "unit": "",
+          "param": "chirpStartIdx",
+          "desc": "Chirp起始索引",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "Chirp结束索引",
+          "value": 127,
+          "unit": "",
+          "param": "chirpEndIdx",
+          "desc": "Chirp结束索引",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "配置文件ID",
+          "value": 0,
+          "unit": "",
+          "param": "profileIdCPCFG",
+          "desc": "雷达配置文件ID",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "起始频率",
+          "value": 0,
+          "unit": "GHz",
+          "param": "startFreqConst",
+          "desc": "起始频率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "频率斜率",
+          "value": 0,
+          "unit": "MHz/us",
+          "param": "freqSlopeVar",
+          "desc": "频率斜率",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "空闲时间",
+          "value": 0,
+          "unit": "us",
+          "param": "idleTimeVar",
+          "desc": "空闲时间",
+          "visible": true,
+          "locked": false
+        },
+        {
+          "title": "ADC开始时间",
+          "value": 0,
+          "unit": "us",
+          "param": "adcStartTimeVar",
+          "desc": "ADC开始时间",
+          "visible": true,
+          "locked": false
+        }
+      ],
+      [
+        {
+          "title": [
+            "TX0使能",
+            "TX1使能",
+            "TX2使能"
+          ],
+          "value": [
+            true,
+            true,
+            false
+          ],
+          "unit": "",
+          "param": "txEnable",
+          "desc": "TX使能",
+          "visible": true,
+          "locked": false
+        }
+      ]
     ]
   ],
-  "Frame": {
-    "ChirpStartIndex": {
+  "Frame": [
+    {
       "title": "Chirp起始索引",
       "value": 0,
       "unit": "",
@@ -876,7 +884,7 @@
       "visible": true,
       "locked": false
     },
-    "ChirpEndIndex": {
+    {
       "title": "Chirp结束索引",
       "value": 127,
       "unit": "",
@@ -885,7 +893,7 @@
       "visible": true,
       "locked": false
     },
-    "NumFrames": {
+    {
       "title": "帧数",
       "value": 0,
       "unit": "",
@@ -894,7 +902,7 @@
       "visible": true,
       "locked": false
     },
-    "NumLoops": {
+    {
       "title": "循环次数",
       "value": 0,
       "unit": "",
@@ -903,7 +911,7 @@
       "visible": true,
       "locked": false
     },
-    "FramePeriodicity": {
+    {
       "title": "帧周期",
       "value": 0,
       "unit": "ms",
@@ -912,7 +920,7 @@
       "visible": true,
       "locked": false
     },
-    "TriggerDelay": {
+    {
       "title": "触发延迟",
       "value": 0,
       "unit": "us",
@@ -921,7 +929,7 @@
       "visible": true,
       "locked": false
     },
-    "NumAdcSamples": {
+    {
       "title": "ADC采样数",
       "value": 0,
       "unit": "",
@@ -930,7 +938,7 @@
       "visible": true,
       "locked": false
     },
-    "TriggerSelect": {
+    {
       "title": "触发选择",
       "value": 0,
       "unit": "",
@@ -939,5 +947,5 @@
       "visible": true,
       "locked": false
     }
-  }
+  ]
 }

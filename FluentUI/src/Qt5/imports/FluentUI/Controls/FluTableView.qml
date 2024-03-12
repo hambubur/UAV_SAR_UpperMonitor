@@ -8,13 +8,7 @@ Rectangle {
     property var columnSource
     property var dataSource
     property color borderColor: FluTheme.dark ? "#252525" : "#e4e4e4"
-    property alias rows: table_view.rows
-    property alias columns: table_view.columns
-    property bool horizonalHeaderVisible: true
-    property bool verticalHeaderVisible: true
-    property color selectedBorderColor: FluTheme.primaryColor
-    property color selectedColor: FluTools.colorAlpha(FluTheme.primaryColor,0.3)
-    property alias sourceModel: table_model
+    property alias tableModel: table_model
     id:control
     color: FluTheme.dark ? Qt.rgba(39/255,39/255,39/255,1) : Qt.rgba(251/255,251/255,253/255,1)
     onColumnSourceChanged: {
@@ -34,14 +28,22 @@ Rectangle {
     }
     QtObject{
         id:d
-        property var current
+        property var currentRow
         property int rowHoverIndex: -1
         property int defaultItemWidth: 100
         property int defaultItemHeight: 42
         property var header_rows:[]
-        property var editDelegate
-        property var editPosition
-        function getEditDelegate(column){
+        function obtEditDelegate(column,row,cellItem){
+            var display = table_model.data(table_model.index(row,column),"display")
+            var cellPosition = cellItem.mapToItem(scroll_table, 0, 0)
+            item_loader.column = column
+            item_loader.row = row
+            item_loader_layout.cellItem = cellItem
+            item_loader_layout.x = table_view.contentX + cellPosition.x
+            item_loader_layout.y = table_view.contentY + cellPosition.y
+            item_loader_layout.width = table_view.columnWidthProvider(column)
+            item_loader_layout.height = table_view.rowHeightProvider(row)
+            item_loader.display = display
             var obj =columnSource[column].editDelegate
             if(obj){
                 return obj
@@ -54,20 +56,20 @@ Rectangle {
     }
     onDataSourceChanged: {
         table_model.clear()
-        table_model.rows = dataSource
+        for(var i =0;i<dataSource.length;i++){
+            var row = dataSource[i]
+            row.__index= i
+            table_model.appendRow(row)
+        }
     }
     TableModel {
         id:table_model
-    }
-    FluTableSortProxyModel{
-        id:table_sort_model
-        model: table_model
     }
     Component{
         id:com_edit
         FluTextBox{
             id:text_box
-            text: String(display)
+            text: display
             readOnly: true === columnSource[column].readOnly
             Component.onCompleted: {
                 forceActiveFocus()
@@ -75,7 +77,7 @@ Rectangle {
             }
             onCommit: {
                 if(!readOnly){
-                    editTextChaged(text_box.text)
+                    display = text_box.text
                 }
                 tableView.closeEditor()
             }
@@ -108,7 +110,7 @@ Rectangle {
                     rightPadding: 24
                     onCommit: {
                         if(!readOnly){
-                            editTextChaged(text_box.text)
+                            display = text
                         }
                         tableView.closeEditor()
                     }
@@ -139,7 +141,7 @@ Rectangle {
         id:com_text
         FluText {
             id:item_text
-            text: String(display)
+            text: modelData
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             anchors{
@@ -165,7 +167,7 @@ Rectangle {
     }
 
     MouseArea{
-        id:layout_mouse_table
+        id:scroll_table
         hoverEnabled: true
         anchors.left: header_vertical.right
         anchors.top: header_horizontal.bottom
@@ -177,230 +179,181 @@ Rectangle {
         onCanceled: {
             d.rowHoverIndex = -1
         }
-        TableView {
-            id:table_view
-            ListModel{
-                id:model_columns
-            }
-            boundsBehavior: Flickable.StopAtBounds
-            syncView: header_horizontal
-            syncDirection: Qt.Horizontal
+        ScrollView{
             anchors.fill: parent
-            ScrollBar.vertical:scroll_bar_v
-            rowHeightProvider: function(row) {
-                var rowObject = control.getRow(row)
-                var height = rowObject.height
-                if(height){
-                    return height
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+            TableView {
+                id:table_view
+                ListModel{
+                    id:model_columns
                 }
-                var minimumHeight = rowObject._minimumHeight
-                if(minimumHeight){
-                    return minimumHeight
+                boundsBehavior: Flickable.StopAtBounds
+                ScrollBar.horizontal: FluScrollBar{
+                    id:scroll_bar_h
                 }
-                return d.defaultItemHeight
-            }
-            model: table_sort_model
-            clip: true
-            onRowsChanged: {
-                closeEditor()
-            }
-            delegate: MouseArea{
-                id:item_table_mouse
-                property var rowObject : control.getRow(row)
-                property var itemModel: model
-                property bool editVisible: {
-                    if(d.editPosition === undefined){
-                        return false
+                ScrollBar.vertical: FluScrollBar{
+                    id:scroll_bar_v
+                }
+                columnWidthProvider: function(column) {
+                    var w = columnSource[column].width
+                    if(!w){
+                        w = columnSource[column].minimumWidth
                     }
-                    if(d.editPosition._key === rowObject._key && d.editPosition.column === column){
-                        return true
+                    if(!w){
+                        w = d.defaultItemWidth
                     }
-                    return false
+                    if(item_loader_layout.cellItem){
+                        if(column === item_loader.column){
+                            item_loader_layout.width = w
+                        }
+                        if(column === item_loader.column-1){
+                            let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader_layout.x = table_view.contentX + cellPosition.x
+                        }
+                    }
+                    return w
+                }
+                rowHeightProvider: function(row) {
+                    if(row>=table_model.rowCount){
+                        return 0
+                    }
+                    var h = table_model.getRow(row).height
+                    if(!h){
+                        h = table_model.getRow(row).minimumHeight
+                    }
+                    if(!h){
+                        h = d.defaultItemHeight
+                    }
+                    if(item_loader_layout.cellItem){
+                        if(row === item_loader.row){
+                            item_loader_layout.height = h
+                        }
+                        if(row === item_loader.row-1){
+                            let cellPosition = item_loader_layout.cellItem.mapToItem(scroll_table, 0, 0)
+                            item_loader_layout.y = table_view.contentY + cellPosition.y
+                        }
+                    }
+                    return h
+                }
+                model: table_model
+                clip: true
+                delegate: MouseArea{
+                    hoverEnabled: true
+                    implicitHeight: 40
+                    implicitWidth: {
+                        var w = columnSource[column].width
+                        if(!w){
+                            w = columnSource[column].minimumWidth
+                        }
+                        if(!w){
+                            w = d.defaultItemWidth
+                        }
+                        return w
+                    }
+                    onEntered: {
+                        d.rowHoverIndex = row
+                    }
+                    Rectangle{
+                        id:item_table
+                        anchors.fill: parent
+                        property point position: Qt.point(column,row)
+                        color:{
+                            if(d.rowHoverIndex === row || d.currentRow === table_model.getRow(row).__index){
+                                return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
+                            }
+                            return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
+                        }
+                        Rectangle{
+                            height: 18
+                            radius: 1.5
+                            color: FluTheme.primaryColor
+                            width: 3
+                            visible: d.currentRow === table_model.getRow(row).__index && column === 0
+                            anchors{
+                                verticalCenter: parent.verticalCenter
+                                left: parent.left
+                                leftMargin: 3
+                            }
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton
+                            onPressed:{
+                                closeEditor()
+                            }
+                            onCanceled: {
+                            }
+                            onReleased: {
+                            }
+                            onDoubleClicked:{
+                                if(typeof(display) == "object"){
+                                    return
+                                }
+                                item_loader.sourceComponent = d.obtEditDelegate(column,row,item_table)
+                            }
+                            onClicked:
+                                (event)=>{
+                                    d.currentRow = table_model.getRow(row).__index
+                                    item_loader.sourceComponent = undefined
+                                    event.accepted = true
+                                }
+                        }
+                        FluLoader{
+                            property var itemModel: model
+                            property var modelData: display
+                            property var tableView: table_view
+                            property var tableModel: table_model
+                            property var position: item_table.position
+                            property int row: position.y
+                            property int column: position.x
+                            property var options: {
+                                if(typeof(modelData) == "object"){
+                                    return modelData.options
+                                }
+                                return {}
+                            }
+                            anchors.fill: parent
+                            sourceComponent: {
+                                if(typeof(modelData) == "object"){
+                                    return modelData.comId
+                                }
+                                return com_text
+                            }
+                        }
+                    }
+                }
+            }
+            MouseArea{
+                property var cellItem
+                id:item_loader_layout
+                acceptedButtons: Qt.NoButton
+                visible: item_loader.sourceComponent
+                onVisibleChanged: {
+                    if(!visible){
+                        item_loader_layout.cellItem = undefined
+                    }
                 }
                 hoverEnabled: true
+                z:2
                 onEntered: {
-                    d.rowHoverIndex = row
+                    d.rowHoverIndex = -1
                 }
-                onWidthChanged: {
-                    if(editVisible){
-                        updateEditPosition()
-                    }
-                }
-                onHeightChanged: {
-                    if(editVisible){
-                        updateEditPosition()
-                    }
-                }
-                onXChanged: {
-                    if(editVisible){
-                        updateEditPosition()
-                    }
-                }
-                onYChanged: {
-                    if(editVisible){
-                        updateEditPosition()
-                    }
-                }
-                function updateEditPosition(){
-                    var obj = {}
-                    obj._key = rowObject._key
-                    obj.column = column
-                    obj.row = row
-                    obj.x = item_table_mouse.x
-                    obj.y = item_table_mouse.y + 1
-                    obj.width = item_table_mouse.width
-                    obj.height = item_table_mouse.height - 2
-                    d.editPosition = obj
-                }
-                Rectangle{
-                    id:item_table
+                FluLoader{
+                    id:item_loader
+                    property var display
+                    property int column
+                    property int row
+                    property var tableView: control
+                    sourceComponent: undefined
                     anchors.fill: parent
-                    property point position: Qt.point(column,row)
-                    property bool isRowSelected: {
-                        if(rowObject === null)
-                            return false
-                        if(d.current){
-                            return rowObject._key === d.current._key
-                        }
-                        return false
-                    }
-                    color:{
-                        if(item_table.isRowSelected){
-                            return control.selectedColor
-                        }
-                        if(d.rowHoverIndex === row || item_table.isRowSelected){
-                            return FluTheme.dark ? Qt.rgba(1,1,1,0.06) : Qt.rgba(0,0,0,0.06)
-                        }
-                        return (row%2!==0) ? control.color : (FluTheme.dark ? Qt.rgba(1,1,1,0.015) : Qt.rgba(0,0,0,0.015))
-                    }
-                    MouseArea{
-                        anchors.fill: parent
-                        acceptedButtons: Qt.LeftButton
-                        onPressed:{
-                            closeEditor()
-                        }
-                        onCanceled: {
-                        }
-                        onReleased: {
-                        }
-                        onDoubleClicked:{
-                            if(typeof(display) == "object"){
-                                return
-                            }
-                            d.editDelegate = d.getEditDelegate(column)
-                            updateEditPosition()
-                            loader_edit.display = display
-                        }
-                        onClicked:
-                            (event)=>{
-                                d.current = rowObject
-                                closeEditor()
-                                event.accepted = true
-                            }
-                    }
-                    FluLoader{
-                        property var model: itemModel
-                        property var display: itemModel.display
-                        property int row: item_table.position.y
-                        property int column: item_table.position.x
-                        property var options: {
-                            if(typeof(modelData) == "object"){
-                                return modelData.options
-                            }
-                            return {}
-                        }
-                        anchors.fill: parent
-                        sourceComponent: {
-                            if(typeof(modelData) == "object"){
-                                return modelData.comId
-                            }
-                            return com_text
-                        }
-                    }
-                    Item{
-                        anchors.fill: parent
-                        visible: item_table.isRowSelected
-                        Rectangle{
-                            width: 1
-                            height: parent.height
-                            anchors.left: parent.left
-                            color: control.selectedBorderColor
-                            visible: column === 0
-                        }
-                        Rectangle{
-                            width: 1
-                            height: parent.height
-                            anchors.right: parent.right
-                            color: control.selectedBorderColor
-                            visible: column === control.columns-1
-                        }
-                        Rectangle{
-                            width: parent.width
-                            height: 1
-                            anchors.top: parent.top
-                            color: control.selectedBorderColor
-                        }
-                        Rectangle{
-                            width: parent.width
-                            height: 1
-                            anchors.bottom: parent.bottom
-                            color: control.selectedBorderColor
-                        }
+                    onDisplayChanged: {
+                        var obj = table_model.getRow(row)
+                        obj[columnSource[column].dataIndex] = display
+                        table_model.setRow(row,obj)
                     }
                 }
             }
-
-            FluLoader{
-                id:loader_edit
-                property var tableView: control
-                property var display
-                property int column: {
-                    if(d.editPosition){
-                        return d.editPosition.column
-                    }
-                    return 0
-                }
-                property int row: {
-                    if(d.editPosition){
-                        return d.editPosition.row
-                    }
-                    return 0
-                }
-                signal editTextChaged(string text)
-                sourceComponent: d.editPosition ? d.editDelegate : undefined
-                onEditTextChaged:
-                    (text)=>{
-                        var obj = control.getRow(row)
-                        obj[columnSource[column].dataIndex] = text
-                        control.setRow(row,obj)
-                    }
-                width: {
-                    if(d.editPosition){
-                        return d.editPosition.width
-                    }
-                    return 0
-                }
-                height: {
-                    if(d.editPosition){
-                        return d.editPosition.height
-                    }
-                    return 0
-                }
-                x:{
-                    if(d.editPosition){
-                        return d.editPosition.x
-                    }
-                    return 0
-                }
-                y:{
-                    if(d.editPosition){
-                        return d.editPosition.y
-                    }
-                    return 0
-                }
-                z:999
-            }
-
         }
     }
     Component{
@@ -417,22 +370,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
         }
     }
-    FluScrollBar {
-        id:scroll_bar_h
-        anchors{
-            left: layout_mouse_table.left
-            right: layout_mouse_table.right
-            bottom: layout_mouse_table.bottom
-        }
-    }
-    FluScrollBar {
-        id:scroll_bar_v
-        anchors{
-            top: layout_mouse_table.top
-            bottom: layout_mouse_table.bottom
-            right: layout_mouse_table.right
-        }
-    }
+
     TableView {
         id: header_horizontal
         model: TableModel{
@@ -440,44 +378,19 @@ Rectangle {
             rows: d.header_rows
         }
         syncDirection: Qt.Horizontal
-        anchors{
-            left: header_vertical.right
-            right: parent.right
-            top: parent.top
-        }
-        visible: control.horizonalHeaderVisible
-        height: visible ? Math.max(1, contentHeight) : 0
+        anchors.left: scroll_table.left
+        anchors.top: parent.top
+        implicitWidth: syncView ? syncView.width : 0
+        implicitHeight: Math.max(1, contentHeight)
+        syncView: table_view
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        ScrollBar.horizontal:scroll_bar_h
-        columnWidthProvider: function(column) {
-            var columnObject = columnSource[column]
-            var width = columnObject.width
-            if(width){
-                return width
-            }
-            var minimumWidth = columnObject.minimumWidth
-            if(minimumWidth){
-                return minimumWidth
-            }
-            return d.defaultItemWidth
-        }
-        onContentXChanged:{
-            timer_horizontal_force_layout.restart()
-        }
-        Timer{
-            id:timer_horizontal_force_layout
-            interval: 50
-            onTriggered: {
-                header_horizontal.forceLayout()
-            }
-        }
         delegate: Rectangle {
             id:column_item_control
             readonly property real cellPadding: 8
             property bool canceled: false
             property int columnIndex: column
-            readonly property var columnObject : columnSource[column]
+            readonly property var obj : columnSource[column]
             implicitWidth: {
                 return (item_column_loader.item && item_column_loader.item.implicitWidth) + (cellPadding * 2)
             }
@@ -510,7 +423,7 @@ Rectangle {
                 height: parent.height
                 anchors.right: parent.right
                 color:"#00000000"
-                visible: column === table_view.columns - 1
+                visible: column === tableModel.columnCount - 1
             }
             MouseArea{
                 id:column_item_control_mouse
@@ -559,18 +472,20 @@ Rectangle {
                 anchors.right: parent.right
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
-                visible: !(columnObject.width === columnObject.minimumWidth && columnObject.width === columnObject.maximumWidth && columnObject.width)
+                visible: !(obj.width === obj.minimumWidth && obj.width === obj.maximumWidth && obj.width)
                 cursorShape: Qt.SplitHCursor
-                preventStealing: true
                 onPressed :
                     (mouse)=>{
+                        header_horizontal.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitHCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
+                    header_horizontal.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onCanceled: {
+                    header_horizontal.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
@@ -579,9 +494,9 @@ Rectangle {
                             return
                         }
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumWidth = columnObject.minimumWidth
-                        var maximumWidth = columnObject.maximumWidth
-                        var w = columnObject.width
+                        var minimumWidth = obj.minimumWidth
+                        var maximumWidth = obj.maximumWidth
+                        var w = obj.width
                         if(!w){
                             w = d.defaultItemWidth
                         }
@@ -591,8 +506,8 @@ Rectangle {
                         if(!maximumWidth){
                             maximumWidth = 65535
                         }
-                        columnObject.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
-                        header_horizontal.forceLayout()
+                        obj.width = Math.min(Math.max(minimumWidth, w + delta.x),maximumWidth)
+                        table_view.forceLayout()
                     }
             }
         }
@@ -600,30 +515,27 @@ Rectangle {
     TableView {
         id: header_vertical
         boundsBehavior: Flickable.StopAtBounds
-        anchors.top: layout_mouse_table.top
+        anchors.top: scroll_table.top
         anchors.left: parent.left
-        visible: control.verticalHeaderVisible
-        implicitWidth: visible ? Math.max(1, contentWidth) : 0
+        implicitWidth: Math.max(1, contentWidth)
         implicitHeight: syncView ? syncView.height : 0
         syncDirection: Qt.Vertical
         syncView: table_view
         clip: true
         model: TableModel{
-            id:model_rows
-            TableModelColumn { display: "rowIndex" }
-        }
-        Connections{
-            target: table_model
-            function onRowCountChanged(){
-                model_rows.rows = Array.from({length: table_model.rows.length}, (_, i) => ({rowIndex:i+1}));
+            TableModelColumn {}
+            rows: {
+                if(dataSource)
+                    return dataSource
+                return []
             }
         }
         onContentYChanged:{
-            timer_vertical_force_layout.restart()
+            timer_force_layout.restart()
         }
         Timer{
-            id:timer_vertical_force_layout
             interval: 50
+            id:timer_force_layout
             onTriggered: {
                 header_vertical.forceLayout()
             }
@@ -632,9 +544,10 @@ Rectangle {
             id:item_control
             readonly property real cellPadding: 8
             property bool canceled: false
-            property var rowObject: control.getRow(row)
             implicitWidth: Math.max(30, row_text.implicitWidth + (cellPadding * 2))
             implicitHeight: row_text.implicitHeight + (cellPadding * 2)
+            width: implicitWidth
+            height: implicitHeight
             color: FluTheme.dark ? Qt.rgba(50/255,50/255,50/255,1) : Qt.rgba(247/255,247/255,247/255,1)
             Rectangle{
                 border.color: control.borderColor
@@ -648,7 +561,7 @@ Rectangle {
                 width: parent.width
                 height: 1
                 anchors.bottom: parent.bottom
-                visible: row === table_view.rows - 1
+                visible: row === tableModel.rowCount - 1
                 color:"#00000000"
             }
             Rectangle{
@@ -668,7 +581,7 @@ Rectangle {
             FluText{
                 id:row_text
                 anchors.centerIn: parent
-                text: model.display
+                text: row + 1
             }
             MouseArea{
                 id:item_control_mouse
@@ -695,21 +608,22 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 acceptedButtons: Qt.LeftButton
                 cursorShape: Qt.SplitVCursor
-                preventStealing: true
                 visible: {
-                    if(rowObject === null)
-                        return false
-                    return !(rowObject.height === rowObject._minimumHeight && rowObject.height === rowObject._maximumHeight && rowObject.height)
+                    var obj = table_model.getRow(row)
+                    return !(obj.height === obj.minimumHeight && obj.height === obj.maximumHeight && obj.height)
                 }
                 onPressed :
                     (mouse)=>{
+                        header_vertical.interactive = false
                         FluTools.setOverrideCursor(Qt.SplitVCursor)
                         clickPos = Qt.point(mouse.x, mouse.y)
                     }
                 onReleased:{
+                    header_vertical.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onCanceled: {
+                    header_vertical.interactive = true
                     FluTools.restoreOverrideCursor()
                 }
                 onPositionChanged:
@@ -717,11 +631,11 @@ Rectangle {
                         if(!pressed){
                             return
                         }
-                        var rowObject = control.getRow(row)
+                        var obj = table_model.getRow(row)
                         var delta = Qt.point(mouse.x - clickPos.x, mouse.y - clickPos.y)
-                        var minimumHeight = rowObject._minimumHeight
-                        var maximumHeight = rowObject._maximumHeight
-                        var h = rowObject.height
+                        var minimumHeight = obj.minimumHeight
+                        var maximumHeight = obj.maximumHeight
+                        var h = obj.height
                         if(!h){
                             h = d.defaultItemHeight
                         }
@@ -731,16 +645,15 @@ Rectangle {
                         if(!maximumHeight){
                             maximumHeight = 65535
                         }
-                        rowObject.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
-                        control.setRow(row,rowObject)
+                        obj.height = Math.min(Math.max(minimumHeight, h + delta.y),maximumHeight)
+                        table_model.setRow(row,obj)
                         table_view.forceLayout()
                     }
             }
         }
     }
     function closeEditor(){
-        d.editPosition = undefined
-        d.editDelegate = undefined
+        item_loader.sourceComponent = null
     }
     function resetPosition(){
         scroll_bar_h.position = 0
@@ -752,41 +665,21 @@ Rectangle {
         o.options = options
         return o
     }
-    function sort(callback=undefined){
-        if(callback){
-            table_sort_model.setComparator(function(left,right){
-                return callback(table_model.getRow(left),table_model.getRow(right))
-            })
+    function updateRow(row,obj){
+        table_model.setRow(row,obj)
+    }
+    function sort(order){
+        let sortedArray = []
+        for(var i =0;i<table_model.rowCount;i++){
+            let row = table_model.getRow(i)
+            sortedArray.push(row)
+        }
+        if(order === undefined){
+            sortedArray.sort((a, b) => a.__index -  b.__index)
         }else{
-            table_sort_model.setComparator(undefined)
+            sortedArray.sort(order)
         }
-    }
-    function filter(callback=undefined){
-        if(callback){
-            table_sort_model.setFilter(function(index){
-                return callback(table_model.getRow(index))
-            })
-        }else{
-            table_sort_model.setFilter(undefined)
-        }
-    }
-    function setRow(rowIndex,obj){
-        if(rowIndex>=0 && rowIndex<table_view.rows){
-            table_view.model.setRow(rowIndex,obj)
-        }
-    }
-    function getRow(rowIndex){
-        if(rowIndex>=0 && rowIndex<table_view.rows){
-            return table_view.model.getRow(rowIndex)
-        }
-        return null
-    }
-    function removeRow(rowIndex,rows=1){
-        if(rowIndex>=0 && rowIndex<table_view.rows){
-            table_view.model.removeRow(rowIndex,rows)
-        }
-    }
-    function appendRow(obj){
-        table_model.appendRow(obj)
+        table_model.clear()
+        table_model.rows = sortedArray
     }
 }

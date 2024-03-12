@@ -3,11 +3,12 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
+import "qrc:///example/qml/component"
 import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("ToggleSwitch")
+    title:"ToggleSwitch"
 
     FluArea{
         Layout.fillWidth: true
@@ -22,21 +23,21 @@ FluScrollablePage{
             }
             FluToggleSwitch{
                 disabled: toggle_switch.checked
-                text: qsTr("Right")
+                text:"Right"
             }
             FluToggleSwitch{
                 disabled: toggle_switch.checked
-                text: qsTr("Left")
+                text:"Left"
                 textRight: false
             }
         }
         FluToggleSwitch{
-            id: toggle_switch
+            id:toggle_switch
             anchors{
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            text: qsTr("Disabled")
+            text:"Disabled"
         }
     }
     CodeExpander{

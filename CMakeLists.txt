@@ -4,10 +4,9 @@ project(UAV_SAR_UpperMonitor VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# FluentUI 设置
+
 set(FLUENTUI_BUILD_EXAMPLES OFF)
 set(FLUENTUI_BUILD_STATIC_LIB OFF)
-add_subdirectory(FluentUI)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Multimedia)
 
@@ -33,6 +32,7 @@ endforeach(filepath)
 qt_standard_project_setup()
 
 qt_add_executable(UAV_SAR_UpperMonitor
+    main.cpp
     ${src_files}
 )
 
@@ -42,12 +42,9 @@ qt_add_qml_module(UAV_SAR_UpperMonitor
     QML_FILES ${ui_files}
     RESOURCES res/img/favicon.ico
         res/img/bg_home_header.png
-        res/img/ic_home_github.png
         res/font/SmileySans-Oblique.ttf
         qml/global/qmldir
-        cfg/cf.json
         cfg/radar.json
-        cfg/mmwaveconfig.json
     RESOURCE_PREFIX "/"
     )
 
@@ -64,10 +61,9 @@ set_target_properties(UAV_SAR_UpperMonitor PROPERTIES
 )
 
 target_link_libraries(UAV_SAR_UpperMonitor
-    PRIVATE
-        Qt6::Quick
-        fluentuiplugin
-        Qt6::Multimedia
+    PRIVATE Qt6::Quick
+    fluentuiplugin
+    Qt6::Multimedia
 )
 
 include(GNUInstallDirs)
@@ -76,3 +72,6 @@ install(TARGETS UAV_SAR_UpperMonitor
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+add_subdirectory(FluentUI)
+

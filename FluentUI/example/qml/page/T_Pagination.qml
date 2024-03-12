@@ -2,12 +2,13 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import "qrc:///example/qml/component"
 import "../component"
 import FluentUI 1.0
 
 FluScrollablePage{
 
-    title: qsTr("Pagination")
+    title:"Pagination"
 
     FluArea{
         Layout.fillWidth: true
@@ -21,22 +22,16 @@ FluScrollablePage{
                 pageCurrent: 1
                 pageButtonCount: 5
                 itemCount: 5000
-                previousText: qsTr("<Previous")
-                nextText: qsTr("Next>")
             }
             FluPagination{
                 pageCurrent: 2
                 itemCount: 5000
                 pageButtonCount: 7
-                previousText: qsTr("<Previous")
-                nextText: qsTr("Next>")
             }
             FluPagination{
                 pageCurrent: 3
                 itemCount: 5000
                 pageButtonCount: 9
-                previousText: qsTr("<Previous")
-                nextText: qsTr("Next>")
             }
         }
 
