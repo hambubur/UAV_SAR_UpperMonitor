@@ -8,10 +8,8 @@ FluViewModel{
 
     // 配置文件路径
     property string cfgPath: "qrc:/UAV_SAR_UpperMonitor/cfg/communication.json"
-    property var channel
-    property var profile
-    property var chirp
-    property var frame
+    // 
+    property var dca1000Config
 
     signal loadCfg
     signal saveCfg
@@ -66,10 +64,7 @@ FluViewModel{
                 return false
             }
 
-            channel = cfg["Channel"]
-            profile = cfg["Profile"]
-            chirp = cfg["Chirp"]
-            frame = cfg["Frame"]
+            dca1000Config = cfg["DCA1000Config"]
 
             // 详细打印出cfg所有内容
             // console.log("cfg: ", JSON.stringify(cfg))
@@ -94,10 +89,7 @@ FluViewModel{
     function savecfg(path)
     {
         var cfg = {
-            "Channel": channel,
-            "Profile": profile,
-            "Chirp": chirp,
-            "Frame": frame
+            "DCA1000Config": dca1000Config
         }
         var file = new XMLHttpRequest()
         file.open("POST", path, false)
@@ -111,7 +103,7 @@ FluViewModel{
 
     function checkcfg()
     {
-        if (channel === undefined || profile === undefined || chirp === undefined || frame === undefined)
+        if (dca1000Config === {})
         {
             showError("参数不完整")
             console.debug("参数不完整")

@@ -17,22 +17,22 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick Multimedia)
 file(GLOB_RECURSE CPP_FILES src/*.cpp src/*.h src/*.hpp src/*.c)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND src_files ${filename})
+    list(APPEND src ${filename})
 endforeach(filepath)
 
 
 #遍历所有qml文件
-file(GLOB_RECURSE QML_PATHS qml/*.qml)
+file(GLOB_RECURSE QML_PATHS qml/*.qml qml/qmldir)
 foreach(filepath ${QML_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND qml_files ${filename})
+    list(APPEND qml ${filename})
 endforeach(filepath)
 
 #遍历所有res文件
-file(GLOB_RECURSE RES_PATHS res/*)
+file(GLOB_RECURSE RES_PATHS res/* cfg/*)
 foreach(filepath ${RES_PATHS})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
-    list(APPEND res_files ${filename})
+    list(APPEND res ${filename})
 endforeach(filepath)
 
 
@@ -40,16 +40,16 @@ qt_standard_project_setup()
 
 qt_add_executable(${PROJECT_NAME}
     main.cpp
-    ${src_files}
+    ${src}
 )
 
 qt_add_qml_module(${PROJECT_NAME}
     URI UAV_SAR_UpperMonitor
     VERSION 1.0
-    QML_FILES ${qml_files}
-    RESOURCES ${res_files} qml/global/qmldir
+    QML_FILES ${qml}
+    RESOURCES ${res}
     RESOURCE_PREFIX "/"
-    )
+)
 
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
