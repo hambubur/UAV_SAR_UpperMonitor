@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/UAV_SAR_UpperMonitor">D:/QtProject/UAV_SAR_UpperMonitor</file>
-
-  </qresource>
-</RCC>
