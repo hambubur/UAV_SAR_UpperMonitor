@@ -229,7 +229,7 @@ FluScrollablePage{
                                     key: modelData.title
                                     value: modelData.value
                                     unit: modelData.unit
-                                    is_editable: !modelData.locked
+                                    locked: modelData.locked
 
                                     onValueChanged: {
                                         viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][0][index].value = value
@@ -253,7 +253,7 @@ FluScrollablePage{
                                         key: viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].title[index]
                                         value: viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].value[index]
                                         unit: viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].unit
-                                        is_editable: !viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].locked
+                                        locked: viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].locked
 
                                         onValueChanged: {
                                             viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][1][outsideIndex].value[index] = value
@@ -357,7 +357,7 @@ FluScrollablePage{
                                     key: modelData.title
                                     value: modelData.value
                                     unit: modelData.unit
-                                    is_editable: !modelData.locked
+                                    locked: modelData.locked
 
                                     onValueChanged: {
                                         viewmodel_radar_cfg.profile[area_radar_profile.profileIndex][0][index].value = value
@@ -381,7 +381,7 @@ FluScrollablePage{
                                         key: viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].title[index]
                                         value: viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].value[index]
                                         unit: viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].unit
-                                        is_editable: !viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].locked
+                                        locked: viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].locked
 
                                         onValueChanged: {
                                             viewmodel_radar_cfg.chirp[area_radar_chirp.chirpIndex][1][outsideIndex].value[index] = value
@@ -455,7 +455,7 @@ FluScrollablePage{
                                 key: modelData.title
                                 value: modelData.value
                                 unit: modelData.unit
-                                is_editable: !modelData.locked
+                                locked: modelData.locked
 
                                 onValueChanged: {
                                     viewmodel_radar_cfg.frame[index].value = value

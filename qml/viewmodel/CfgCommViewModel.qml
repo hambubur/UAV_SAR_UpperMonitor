@@ -112,4 +112,9 @@ FluViewModel{
         return true
     }
 
+    function keys()
+    {
+        return Object.keys(dca1000Config)
+    }
+
 }
