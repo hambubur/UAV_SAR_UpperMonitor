@@ -5,9 +5,9 @@ import QtQuick.Layouts
 import Qt.labs.platform
 import FluentUI
 import UAV_SAR_UpperMonitor
-import "qrc:/qml/viewmodel"
-import "qrc:/qml/global"
-import "qrc:/qml/component"
+import "../viewmodel"
+import "../global"
+import "../component"
 
 
 
@@ -59,16 +59,16 @@ FluWindow {
 
     FluContentDialog{
         id:dialog_close
-        title:"退出"
-        message:"确定要退出程序吗？"
-        negativeText:"最小化"
+        title: qsTr("退出")
+        message:qsTr("确定要退出程序吗？")
+        negativeText:qsTr("最小化")
         buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.NeutralButton | FluContentDialogType.PositiveButton
         onNegativeClicked: {
-            system_tray.showMessage("友情提示","已隐藏至托盘,点击托盘可再次激活窗口");
+            system_tray.showMessage(qsTr("友情提示"),qsTr("已隐藏至托盘,点击托盘可再次激活窗口"));
             timer_window_hide_delay.restart()
         }
-        positiveText:"退出"
-        neutralText:"取消"
+        positiveText: qsTr("退出")
+        neutralText: qsTr("取消")
         onPositiveClicked:{
             FluApp.exit(0)
         }
@@ -80,7 +80,7 @@ FluWindow {
             id:menu
             width: 60
             FluMenuItem{
-                text: "在独立窗口打开"
+                text: qsTr("在独立窗口打开")
                 visible: true
                 onClicked: {
                     FluApp.navigate("/pageWindow",{title:modelData.title,url:modelData.url})
@@ -170,7 +170,7 @@ FluWindow {
                 }
                 displayMode:viewmodel_settings.displayMode
                 logo: "qrc:/res/img/favicon.ico"
-                title:"UAV_SAR_UpperMonitor"
+                title: qsTr("UAV-SAR UpperMonitor")
                 onLogoClicked:{
                     showSuccess("翻个面儿")
                     flipable.flipped = true

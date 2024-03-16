@@ -15,7 +15,6 @@
 #include "src/component/FileWatcher.h"
 #include "src/component/FpsItem.h"
 #include "src/helper/SettingsHelper.h"
-#include "src/helper/InitalizrHelper.h"
 #include "src/helper/TranslateHelper.h"
 
 #ifdef FLUENTUI_BUILD_STATIC_LIB
@@ -68,17 +67,23 @@ int main(int argc, char *argv[])
     TranslateHelper::getInstance()->init(&engine);
     engine.rootContext()->setContextProperty("AppInfo",AppInfo::getInstance());
     engine.rootContext()->setContextProperty("SettingsHelper",SettingsHelper::getInstance());
-    engine.rootContext()->setContextProperty("InitalizrHelper",InitalizrHelper::getInstance());
     engine.rootContext()->setContextProperty("TranslateHelper",TranslateHelper::getInstance());
 #ifdef FLUENTUI_BUILD_STATIC_LIB
     FluentUI::getInstance()->registerTypes(&engine);
 #endif
 
+    // 设置窗口图标
+    app.setWindowIcon(QIcon("qrc:/res/img/favicon.ico"));
+
+    // 根据屏幕分辨率设置窗口大小
     QQmlContext* context = engine.rootContext();
     QScreen* screen = QGuiApplication::primaryScreen();
     QRect rect = screen->virtualGeometry();
     context->setContextProperty("SCREEN_WIDTH", rect.width());
     context->setContextProperty("SCREEN_HEIGHT", rect.height());
+
+    // XMLHttpRequest 允许读取本地文件
+    qputenv("QML_XHR_ALLOW_FILE_READ", QByteArray("1"));
 
     qmlRegisterType<CircularReveal>("UAV_SAR_UpperMonitor", 1, 0, "CircularReveal");
     qmlRegisterType<FileWatcher>("UAV_SAR_UpperMonitor", 1, 0, "FileWatcher");

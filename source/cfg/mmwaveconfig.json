@@ -1,0 +1,113 @@
+{
+    "ChanCfg": [
+        {
+            "channelTx": 3,
+            "channelRx": 15,
+            "cascading": 0
+        }
+    ],
+    "ProfileCfg": [
+        {
+            "profileId": 0,
+            "pfVcoSelect": 2,
+            "startFreqConst": 1416742684,
+            "idleTimeConst": 4000,
+            "adcStartTimeConst": 100,
+            "rampEndTime": 6000,
+            "txOutPowerBackoffCode": 0,
+            "txPhaseShifter": 0,
+            "freqSlopeConst": 1657,
+            "txStartTime": 0,
+            "numAdcSamples": 1024,
+            "digOutSampleRate": 22500,
+            "hpfCornerFreq1": 0,
+            "hpfCornerFreq2": 0,
+            "rxGain": 30
+        },
+        {
+            "profileId": 1,
+            "pfVcoSelect": 2,
+            "startFreqConst": 1439117143,
+            "idleTimeConst": 1000,
+            "adcStartTimeConst": 700,
+            "rampEndTime": 6000,
+            "txOutPowerBackoffCode": 0,
+            "txPhaseShifter": 0,
+            "freqSlopeConst": 621,
+            "txStartTime": 0,
+            "numAdcSamples": 256,
+            "digOutSampleRate": 10000,
+            "hpfCornerFreq1": 0,
+            "hpfCornerFreq2": 0,
+            "rxGain": 30
+        },
+        {
+            "profileId": 2,
+            "pfVcoSelect": 2,
+            "startFreqConst": 1439117143,
+            "idleTimeConst": 1000,
+            "adcStartTimeConst": 800,
+            "rampEndTime": 6000,
+            "txOutPowerBackoffCode": 0,
+            "txPhaseShifter": 0,
+            "freqSlopeConst": 621,
+            "txStartTime": 0,
+            "numAdcSamples": 256,
+            "digOutSampleRate": 10000,
+            "hpfCornerFreq1": 0,
+            "hpfCornerFreq2": 0,
+            "rxGain": 30
+        },
+        {
+            "profileId": 3,
+            "pfVcoSelect": 2,
+            "startFreqConst": 1439117143,
+            "idleTimeConst": 1000,
+            "adcStartTimeConst": 900,
+            "rampEndTime": 6000,
+            "txOutPowerBackoffCode": 0,
+            "txPhaseShifter": 32768,
+            "freqSlopeConst": 621,
+            "txStartTime": 0,
+            "numAdcSamples": 256,
+            "digOutSampleRate": 10000,
+            "hpfCornerFreq1": 0,
+            "hpfCornerFreq2": 0,
+            "rxGain": 30
+        }
+    ],
+    "ChirpCfg": [
+        {
+            "chirpStartIdx": 0,
+            "chirpEndIdx": 63,
+            "profileIdCPCFG": 0,
+            "startFreqVar": 0,
+            "freqSlopeVar": 0,
+            "idleTimeVar": 0,
+            "adcStartTimeVar": 0,
+            "txEnable": 3
+        },
+        {
+            "chirpStartIdx": 64,
+            "chirpEndIdx": 127,
+            "profileIdCPCFG": 0,
+            "startFreqVar": 0,
+            "freqSlopeVar": 0,
+            "idleTimeVar": 0,
+            "adcStartTimeVar": 0,
+            "txEnable": 2
+        }
+    ],
+    "FrameCfg": [
+        {
+            "chirpStartIdxFCF": 0,
+            "chirpEndIdxFCF": 63,
+            "frameCount": 1,
+            "loopCount": 8,
+            "periodicity": 12000000,
+            "triggerDelay": 0,
+            "numAdcSamples": 2048,
+            "triggerSelect": 1
+        }
+    ]
+}

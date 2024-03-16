@@ -22,29 +22,31 @@ Item {
         }
     }
 
+    Connections{
+        target: TranslateHelper
+        function onCurrentChanged(){
+            SettingsHelper.saveLanguage(TranslateHelper.current)
+        }
+    }
+
     Component.onCompleted: {
         FluNetwork.openLog = false
         FluNetwork.setInterceptor(function(param){
             param.addHeader("Token","000000000000000000000")
         })
-        FluApp.init(app)
-        FluApp.windowIcon = "qrc:/res/img/favicon.ico"
+        FluApp.init(app,Qt.locale(TranslateHelper.current))
+        FluApp.windowIcon = "qrc:/res/image/favicon.ico"
         FluApp.useSystemAppBar = SettingsHelper.getUseSystemAppBar()
         FluTheme.darkMode = SettingsHelper.getDarkMode()
         FluTheme.enableAnimation = true
         FluApp.routes = {
-            // "/":"qrc:/example/qml/window/MainWindow.qml",
-            // "/about":"qrc:/example/qml/window/AboutWindow.qml",
-            // "/login":"qrc:/example/qml/window/LoginWindow.qml",
-            // "/hotload":"qrc:/example/qml/window/HotloadWindow.qml",
-            // "/singleTaskWindow":"qrc:/example/qml/window/SingleTaskWindow.qml",
-            // "/standardWindow":"qrc:/example/qml/window/StandardWindow.qml",
-            // "/singleInstanceWindow":"qrc:/example/qml/window/SingleInstanceWindow.qml",
-            // "/pageWindow":"qrc:/example/qml/window/PageWindow.qml"
-            "/":"qrc:/qml/window/MainWindow.qml",
-            "/settings":"qrc:/qml/window/SettingstWindow.qml"
+            "/":"qrc:/qml/window/MainWindow.qml"
         }
-        FluApp.initialRoute = "/"
-        FluApp.run()
+        var args = Qt.application.arguments
+        if(args.length>=2 && args[1].startsWith("-crashed=")){
+            FluApp.navigate("/crash",{crashFilePath:args[1].replace("-crashed=","")})
+        }else{
+            FluApp.navigate("/")
+        }
     }
 }

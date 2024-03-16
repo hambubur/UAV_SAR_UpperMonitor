@@ -1,7 +1,7 @@
 import os
 
 # 指定你想要扫描的目录
-directories = ['qml', 'src', 'res']
+directories = ['qml', 'src', 'res', "cfg"]
 
 # 打开你的.qrc文件
 with open('qml.qrc', 'w') as f:

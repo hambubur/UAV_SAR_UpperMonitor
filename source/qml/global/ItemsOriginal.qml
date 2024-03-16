@@ -46,14 +46,27 @@ FluObject{
             infoBadge:FluBadge{
                 count: item_cfg_radar.count
             }
-            title:"Radar Parameters"
+            title: qsTr("Radar Parameters")
             menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
             url:"qrc:/qml/page/configuration/radar_parameters.qml"
             onTap:{
                 item_cfg_radar.count = 0
+                navigationView.push(url)
+            }
+        }
+
+        //通信
+        FluPaneItem{
+            id:item_cfg_file
+            count: 0
+            infoBadge:FluBadge{
+                count: item_cfg_file.count
+            }
+            title:"Communication Parameters"
+            menuDelegate: paneItemMenu
+            url:"qrc:/qml/page/configuration/communication_parameters.qml"
+            onTap:{
+                item_cfg_file.count = 0
                 navigationView.push(url)
             }
         }
@@ -65,50 +78,27 @@ FluObject{
             infoBadge:FluBadge{
                 count: item_cfg_radar.count
             }
-            title:"Camera Parameters"
+            title: qsTr("Camera Parameters")
             menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
             url:"qrc:/qml/page/configuration/camera_parameters.qml"
             onTap:{
                 item_cfg_radar.count = 0
                 navigationView.push(url)
             }
         }
-
-        //文件
-        FluPaneItem{
-            id:item_cfg_file
-            count: 0
-            infoBadge:FluBadge{
-                count: item_cfg_file.count
-            }
-            title:"File Path"
-            menuDelegate: paneItemMenu
-            // image:"qrc:/example/res/image/control/Button.png"
-            // recentlyUpdated:true
-            // desc:"A control that responds to user input and raisesa Click event."
-            url:"qrc:/qml/page/configuration/camera_parameters.qml"
-            onTap:{
-                item_cfg_file.count = 0
-                navigationView.push(url)
-            }
-        }
-
     }
 
-    //显示
+    //数据录制
     FluPaneItem{
         id:item_recorder
         count: 0
-        title:"显示"
+        title: qsTr("Data Recorder")
         menuDelegate: paneItemMenu
         infoBadge:FluBadge{
             count: item_recorder.count
         }
         icon:FluentIcons.TVMonitor
-        url:"qrc:/qml/page/CameraPage.qml"
+        url:"qrc:/qml/page/RecordPage.qml"
         onTap:{
             if(navigationView.getCurrentUrl()){
                 item_recorder.count = 0
@@ -121,35 +111,16 @@ FluObject{
     FluPaneItem{
         id:item_processor
         count: 0
-        title:Lang.home
+        title: qsTr("Data Processor")
         menuDelegate: paneItemMenu
         infoBadge:FluBadge{
             count: item_processor.count
         }
         icon:FluentIcons.GridView
-        url:"qrc:/qml/window/CameraWindow.qml"
+        url:"qrc:/qml/page/ProcessPage.qml"
         onTap:{
             if(navigationView.getCurrentUrl()){
                 item_processor.count = 0
-            }
-            navigationView.push(url)
-        }
-    }
-
-    //预览
-    FluPaneItem{
-        id:item_previewer
-        count: 0
-        title:Lang.home
-        menuDelegate: paneItemMenu
-        infoBadge:FluBadge{
-            count: item_previewer.count
-        }
-        icon:FluentIcons.GridView
-        url:"qrc:/qml/window/CameraWindow.qml"
-        onTap:{
-            if(navigationView.getCurrentUrl()){
-                item_previewer.count = 0
             }
             navigationView.push(url)
         }

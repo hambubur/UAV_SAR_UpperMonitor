@@ -21,8 +21,8 @@ else()
     set(APPLICATION_REAL_PATH ${APPLICATION_OUTPUT_DIRECTORY})
 endif()
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Multimedia)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Multimedia)
 
 find_program(QT_LUPDATE NAMES lupdate)
 find_program(QT_LRELEASE NAMES lrelease)
@@ -39,7 +39,7 @@ file(GLOB QM_FILE_PATHS ${CMAKE_CURRENT_LIST_DIR}/ *.qm)
 file(COPY ${QM_FILE_PATHS} DESTINATION ${APPLICATION_REAL_PATH}/i18n)
 
 
-#遍历所有Cpp文件
+#遍历所有cpp文件
 file(GLOB_RECURSE CPP_FILES src/*.cpp src/*.h)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
@@ -60,16 +60,22 @@ foreach(filepath ${RES_PATHS})
     list(APPEND RESFILES ${filename})
 endforeach(filepath)
 
+
+
+#添加资源文件
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
         main.cpp
         qml.qrc
+        app_win32.rc
         ${SRCFILES}
     )
 else()
     add_executable(${PROJECT_NAME}
-        ${PROJECT_SOURCES}
+        main.cpp
+        qml.qrc
+        ${SRCFILES}
     )
 endif()
 
@@ -101,6 +107,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Multimedia
     fluentuiplugin
 )
 

@@ -2,23 +2,26 @@
     <qresource prefix="/">
         <file>qml\App.qml</file>
         <file>qml\component\CodeExpander.qml</file>
-        <file>qml\component\ParaList.qml</file>
+        <file>qml\component\ParameterComboBox.qml</file>
         <file>qml\component\ParameterInputBox.qml</file>
+        <file>qml\component\ParameterSpinBox.qml</file>
         <file>qml\global\Cfg.qml</file>
         <file>qml\global\ItemsFooter.qml</file>
         <file>qml\global\ItemsOriginal.qml</file>
         <file>qml\global\Lang.qml</file>
         <file>qml\global\qmldir</file>
-        <file>qml\page\CameraPage.qml</file>
-        <file>qml\page\ConfigPage.qml</file>
         <file>qml\page\HomePage.qml</file>
+        <file>qml\page\ProcessPage.qml</file>
+        <file>qml\page\RecordPage.qml</file>
+        <file>qml\page\SettingsPage.qml</file>
         <file>qml\page\configuration\camera_parameters.qml</file>
+        <file>qml\page\configuration\communication_parameters.qml</file>
         <file>qml\page\configuration\radar_parameters.qml</file>
+        <file>qml\viewmodel\CfgCommViewModel.qml</file>
+        <file>qml\viewmodel\CfgRadarViewModel.qml</file>
         <file>qml\viewmodel\SettingsViewModel.qml</file>
         <file>qml\viewmodel\TextBoxViewModel.qml</file>
         <file>qml\window\MainWindow.qml</file>
-        <file>qml\window\PageWindow.qml</file>
-        <file>qml\window\SettingsWindow.qml</file>
         <file>src\AppInfo.cpp</file>
         <file>src\AppInfo.h</file>
         <file>src\app_dmp.h</file>
@@ -30,8 +33,6 @@
         <file>src\component\FileWatcher.h</file>
         <file>src\component\FpsItem.cpp</file>
         <file>src\component\FpsItem.h</file>
-        <file>src\helper\InitalizrHelper.cpp</file>
-        <file>src\helper\InitalizrHelper.h</file>
         <file>src\helper\Log.cpp</file>
         <file>src\helper\Log.h</file>
         <file>src\helper\SettingsHelper.cpp</file>
@@ -168,14 +169,13 @@
         <file>res\svg\avatar_9.svg</file>
         <file>res\svg\home.svg</file>
         <file>res\svg\home_dark.svg</file>
-        <file>res\template\CMakeLists.txt.in</file>
-        <file>res\template\src\App.qml.in</file>
-        <file>res\template\src\CMakeLists.txt.in</file>
-        <file>res\template\src\en_US.ts.in</file>
-        <file>res\template\src\logo.ico.in</file>
-        <file>res\template\src\main.cpp.in</file>
-        <file>res\template\src\main.qml.in</file>
-        <file>res\template\src\qml.qrc.in</file>
-        <file>res\template\src\zh_CN.ts.in</file>
+        <file>cfg\cf.json</file>
+        <file>cfg\communication.json</file>
+        <file>cfg\dca1000.json</file>
+        <file>cfg\mmwaveconfig.json</file>
+        <file>cfg\radar.json</file>
+        <file>cfg\radar1.json</file>
+        <file>cfg\radar2.json</file>
+        <file>cfg\set.ipynb</file>
     </qresource>
 </RCC>

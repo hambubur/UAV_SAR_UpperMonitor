@@ -15,22 +15,6 @@ FluScrollablePage{
         id:viewmodel_settings
     }
 
-    FluEvent{
-        id:event_checkupdate_finish
-        name: "checkUpdateFinish"
-        onTriggered: {
-            btn_checkupdate.loading = false
-        }
-    }
-
-    Component.onCompleted: {
-        FluEventBus.registerEvent(event_checkupdate_finish)
-    }
-
-    Component.onDestruction: {
-        FluEventBus.unRegisterEvent(event_checkupdate_finish)
-    }
-
     FluArea{
         Layout.fillWidth: true
         Layout.topMargin: 20
@@ -43,15 +27,6 @@ FluScrollablePage{
                 text: "%1 v%2".arg(qsTr("Current Version")).arg(AppInfo.version)
                 font: FluTextStyle.Body
                 anchors.verticalCenter: parent.verticalCenter
-            }
-            FluLoadingButton{
-                id: btn_checkupdate
-                text: qsTr("Check for Updates")
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: {
-                    loading = true
-                    FluEventBus.post("checkUpdate")
-                }
             }
         }
     }
@@ -78,11 +53,31 @@ FluScrollablePage{
         height: 50
         paddings: 10
         FluCheckBox{
-            text:qsTr("Fits AppBar Windows")
+            text: qsTr("Fits AppBar Windows")
             checked: window.fitsAppBarWindows
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 window.fitsAppBarWindows = !window.fitsAppBarWindows
+            }
+        }
+    }
+
+    FluArea{
+        Layout.fillWidth: true
+        Layout.topMargin: 20
+        height: 50
+        paddings: 10
+        FluCheckBox{
+            text:"Software Render"
+            checked: SettingsHelper.getRender() === "software"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                if(SettingsHelper.getRender() === "software"){
+                    SettingsHelper.saveRender("")
+                }else{
+                    SettingsHelper.saveRender("software")
+                }
+                dialog_restart.open()
             }
         }
     }
@@ -112,13 +107,13 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text: qsTr("Dark Mode")
+                text:qsTr("Dark Mode")
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }
             Repeater{
                 model: [{title:qsTr("System"),mode:FluThemeType.System},{title:qsTr("Light"),mode:FluThemeType.Light},{title:qsTr("Dark"),mode:FluThemeType.Dark}]
-                delegate: FluRadioButton{
+                delegate:  FluRadioButton{
                     checked : FluTheme.darkMode === modelData.mode
                     text:modelData.title
                     clickListener:function(){
@@ -142,7 +137,7 @@ FluScrollablePage{
                 left: parent.left
             }
             FluText{
-                text:qsTr("Navigation View Display Mode")
+                text: qsTr("Navigation View Display Mode")
                 font: FluTextStyle.BodyStrong
                 Layout.bottomMargin: 4
             }

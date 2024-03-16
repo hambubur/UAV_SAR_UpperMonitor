@@ -12,17 +12,21 @@ Item {
     property int box_width: 50
     property int unit_width: 75
 
+    property bool is_editable: true
     property bool locked: false
     property bool hovered: mouseArea.containsMouse
     property string key
     property var value
     property string unit
+    property int minimumValue: 0
+    property int maximumValue: 100
 
     // name
     FluArea{
         anchors.fill: parent
         paddings: 5
         leftPadding: 15
+
         RowLayout {
             anchors.centerIn: parent.Center
             spacing: 5
@@ -34,7 +38,7 @@ Item {
                     id: para_key
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 10
-                    text: key
+                    text: wrapper.key
                     font{
                         pixelSize: 14
                     }
@@ -49,15 +53,17 @@ Item {
             Item{
                 width: wrapper.box_width
                 height: wrapper.height-10
-                FluTextBox{
+                FluSpinBox{
                     id: para_value
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width
-                    text: value
-                    disabled: locked
-                    cleanEnabled: false
+                    disabled: wrapper.locked
+                    editable: wrapper.is_editable
 
-                    onTextChanged: wrapper.value = text
+                    value: wrapper.value
+                    from: wrapper.minimumValue
+                    to: wrapper.maximumValue
+                    onValueChanged: wrapper.value = value
                 }
             }
 
